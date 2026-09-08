@@ -1,6 +1,6 @@
 # Tech Challenge - Fase 3
 
-## Predicao e inteligencia analitica para alfabetizacao no Brasil
+## Predição e Inteligência Analítica para Alfabetização no Brasil
 
 Projeto da Fase 3 do Tech Challenge, baseado na tabela oficial `gold.base_modelagem_aluno`, produzida na Fase 2 com dados INEP/IBGE.
 
