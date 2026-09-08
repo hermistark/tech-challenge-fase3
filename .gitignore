@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data and generated artifacts
+data/raw/*
+data/processed/*
+data/*.csv
+data/*.parquet
+models/
+reports/generated/
+images/generated/
+
+# OS and IDE
+.DS_Store
+Thumbs.db
+.vscode/
