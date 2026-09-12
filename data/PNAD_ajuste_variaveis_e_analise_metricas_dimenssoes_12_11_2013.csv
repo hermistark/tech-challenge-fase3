@@ -1,0 +1,237 @@
+Categorias e Variáveis (Métrica e dimensões);Detalhes;Categorias Implementada no Extrator;Categorias Internas do Banco de Dados;Varáveis Disponíveis no Banco de Dados;Variáveis Internas do Banco de Dados
+D21 - Região Geográfica;Grandes Regiões Geográficas;Região Norte;RENO;REG;REG
+D21 - Região Geográfica;Grandes Regiões Geográficas;Região Centro-Oeste;RECO;REG;REG
+D21 - Região Geográfica;Grandes Regiões Geográficas;Região Nordeste;RENE;REG;REG
+D21 - Região Geográfica;Grandes Regiões Geográficas;Região Sudeste;RESE;REG;REG
+D21 - Região Geográfica;Grandes Regiões Geográficas;Região Sul;RSUL;REG;REG
+D15 - Metropolitana ou Urbana ou Rural;Situação Censitária (Metropolitana ou Urbana ou Rural);Metropolitano;METR;REG1;REG1
+D15 - Metropolitana ou Urbana ou Rural;Situação Censitária (Metropolitana ou Urbana ou Rural);Urbana;URBA;REG1;REG1
+D15 - Metropolitana ou Urbana ou Rural;Situação Censitária (Metropolitana ou Urbana ou Rural);Rural;RURA;REG1;REG1
+D14 - Metropolitana ou Não-Metropolitana;Situação Censitária – Categórica (Metropolitana ou Não-Metropolitana) ;Metropolitana;METR;REG2;REG2
+D14 - Metropolitana ou Não-Metropolitana;Situação Censitária – Categórica (Metropolitana ou Não-Metropolitana) ;Não Metropolitana;NMET;REG2;REG2
+D22 - Saber Ler e Escrever;Variável Binária - Saber Ler e Escrever;Sim;1;SABE_LER;SABE_LER
+D22 - Saber Ler e Escrever;Variável Binária - Saber Ler e Escrever;Não;0;SABE_LER;SABE_LER
+D20 - Posição na Ocupação;Posição na ocupação no trabalho principal da semana de referência;Empregado com carteira Assinada;1;pos_ocup;POSOCUP
+D20 - Posição na Ocupação;Posição na ocupação no trabalho principal da semana de referência;Empregado sem carteira Assinada;2;pos_ocup;POSOCUP
+D20 - Posição na Ocupação;Posição na ocupação no trabalho principal da semana de referência;Trabalho por conta própria;3;pos_ocup;POSOCUP
+D20 - Posição na Ocupação;Posição na ocupação no trabalho principal da semana de referência;Empregador;4;pos_ocup;POSOCUP
+D20 - Posição na Ocupação;Posição na ocupação no trabalho principal da semana de referência;Trabalho não remunerado;5;pos_ocup;POSOCUP
+D20 - Posição na Ocupação;Posição na ocupação no trabalho principal da semana de referência;Empregado Doméstico com Carteira Assinada;6;pos_ocup;POSOCUP
+D20 - Posição na Ocupação;Posição na ocupação no trabalho principal da semana de referência;Empregado Doméstico sem Carteira Assinada;7;pos_ocup;POSOCUP
+D20 - Posição na Ocupação;Posição na ocupação no trabalho principal da semana de referência;Trabalho para consumo próprio;9;pos_ocup;POSOCUP
+D20 - Posição na Ocupação;Posição na ocupação no trabalho principal da semana de referência;Construção para uso próprio;10;pos_ocup;POSOCUP
+D20 - Posição na Ocupação;Posição na ocupação no trabalho principal da semana de referência;Empregado público estatutário ou militar;11;pos_ocup;POSOCUP
+D20 - Posição na Ocupação;Posição na ocupação no trabalho principal da semana de referência;Outros;99;pos_ocup;POSOCUP
+D05 - Contribuição à Previdência;Variável Binária - Era contribuinte de instituto de previdência;Sim;1;PREV;PREV
+D05 - Contribuição à Previdência;Variável Binária - Era contribuinte de instituto de previdência;Não;0;PREV;PREV
+Binária - Era contribuinte de alguma entidade de previdência privada, no mês de referência;Binária - Era contribuinte de alguma entidade de previdência privada, no mês de referência;Sim;1;PREV_PRI;PREV_PRI
+Binária - Era contribuinte de alguma entidade de previdência privada, no mês de referência;Binária - Era contribuinte de alguma entidade de previdência privada, no mês de referência;Não;0;PREV_PRI;PREV_PRI
+D17 - PIA - Maiores de 10 anos;População em Idade Ativa - Maiores de 10 anos;Ativo (mais de 10 anos de idade);1;pia;PIA
+D17 - PIA - Maiores de 10 anos;População em Idade Ativa - Maiores de 10 anos;Não ativo (mais de 10 anos de idade);0;pia;PIA
+D18 - PIA - Maiores de 15 anos;População em Idade Ativa - Maiores de 15 anos;Ativo (mais de 15 anos de idade);1;pia1;PIA1
+D18 - PIA - Maiores de 15 anos;População em Idade Ativa - Maiores de 15 anos;Não ativo (mais de 15 anos de idade);0;pia1;PIA1
+D19 - PIA - Maiores de 10 anos e Ocupados, Desocupados ou Inativos (sem missings);População em Idade Ativa - Maiores de 10 anos e Ocupados, Desocupados ou Inativos (PIA sem missings);Sim;1;pia2;PIA2
+D19 - PIA - Maiores de 10 anos e Ocupados, Desocupados ou Inativos (sem missings);População em Idade Ativa - Maiores de 10 anos e Ocupados, Desocupados ou Inativos (PIA sem missings);Não;0;pia2;PIA2
+D04 - População Economicamente Ativa;Condição de atividade na semana de referência para pessoas de 10 anos ou mais de idade;Não se Aplica;;PEA_IBGE;PEA_IGBE
+D04 - População Economicamente Ativa;Condição de atividade na semana de referência para pessoas de 10 anos ou mais de idade;Economicamente Ativa;1;PEA_IBGE;PEA_IGBE
+D04 - População Economicamente Ativa;Condição de atividade na semana de referência para pessoas de 10 anos ou mais de idade;Não Economicamente Ativa;0;PEA_IBGE;PEA_IGBE
+Ano da Amostra;Ano da Amostra;1992;1992;ano;ANO
+Ano da Amostra;Ano da Amostra;1993;1993;ano;ANO
+Ano da Amostra;Ano da Amostra;1995;1995;ano;ANO
+Ano da Amostra;Ano da Amostra;1996;1996;ano;ANO
+Ano da Amostra;Ano da Amostra;1997;1997;ano;ANO
+Ano da Amostra;Ano da Amostra;1998;1998;ano;ANO
+Ano da Amostra;Ano da Amostra;1999;1999;ano;ANO
+Ano da Amostra;Ano da Amostra;2001;2001;ano;ANO
+Ano da Amostra;Ano da Amostra;2002;2002;ano;ANO
+Ano da Amostra;Ano da Amostra;2003;2003;ano;ANO
+Ano da Amostra;Ano da Amostra;2004;2004;ano;ANO
+Ano da Amostra;Ano da Amostra;2005;2005;ano;ANO
+Ano da Amostra;Ano da Amostra;2006;2006;ano;ANO
+Ano da Amostra;Ano da Amostra;2007;2007;ano;ANO
+Ano da Amostra;Ano da Amostra;2008;2008;ano;ANO
+Ano da Amostra;Ano da Amostra;2009;2009;ano;ANO
+Ano da Amostra;Ano da Amostra;2011;2011;ano;ANO
+Ano da Amostra;Ano da Amostra;2012;2012;ano;ANO
+D26 - Unidade da Federação;Unidade da Federação;Acre;AC;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Alagoas;AL;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Amazonas;AM;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Amapá;AP;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Bahia;BA;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Ceará;CE;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Distrito Federal;DF;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Espírito Santo;ES;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Goiás;GO;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Maranhão;MA;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Minas Gerais;MG;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Mato Grosso do Sul;MS;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Mato Grosso;MT;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Pará;PA;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Paraíba;PB;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Pernambuco;PE;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Piauí;PI;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Paraná;PR;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Rio de Jnaeiro;RJ;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Rio Grande do Norte;RN;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Rondônia;RO;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Roraima;RR;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Rio Grande do Sul;RS;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Santa Catarina;SC;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Sergipe;SE;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;São Paulo;SP;UF2;UF2
+D26 - Unidade da Federação;Unidade da Federação;Tocantins;TO;UF2;UF2
+D06 - Cor;Cor;Não Definido;...;cor / COR_N;cor
+D06 - Cor;Cor;Amarelo;Amarel;cor / COR_N;cor
+D06 - Cor;Cor;Branco;Branco;cor / COR_N;cor
+D06 - Cor;Cor;Indégena;Indíge;cor / COR_N;cor
+D06 - Cor;Cor;Parda;Parda;cor / COR_N;cor
+D06 - Cor;Cor;Preto;Preto;cor / COR_N;cor
+D09 - Faixa de Idade;Faixa de Idade;Não Aplicável;.....;fxid6;fxid6
+D09 - Faixa de Idade;Faixa de Idade;00 a 09 anos de idade;00a09;fxid6;fxid6
+D09 - Faixa de Idade;Faixa de Idade;10 a 14 anos de idade;10a14;fxid6;fxid6
+D09 - Faixa de Idade;Faixa de Idade;15 a 17 anos de idade;15a17;fxid6;fxid6
+D09 - Faixa de Idade;Faixa de Idade;18 a 19 anos de idade;18a19;fxid6;fxid6
+D09 - Faixa de Idade;Faixa de Idade;20 a 24 anos de idade;20a24;fxid6;fxid6
+D09 - Faixa de Idade;Faixa de Idade;25 a 29 anos de idade;25a29;fxid6;fxid6
+D09 - Faixa de Idade;Faixa de Idade;30 a 39 anos de idade;30a39;fxid6;fxid6
+D09 - Faixa de Idade;Faixa de Idade;40 a 49 anos de idade;40a49;fxid6;fxid6
+D09 - Faixa de Idade;Faixa de Idade;50 a 59 anos de idade;50a59;fxid6;fxid6
+D09 - Faixa de Idade;Faixa de Idade;Mais de 60 anos de idade;60E++;fxid6;fxid6
+D24 - Ocupação;Ocupação no trabalho principal da semana de referência;Não Aplicável;;ocupacao / OCUPACAO_N;ocupacao
+D24 - Ocupação;Ocupação no trabalho principal da semana de referência;Dirigentes em Geral;DIRIGENTES EM GERAL;ocupacao / OCUPACAO_N;ocupacao
+D24 - Ocupação;Ocupação no trabalho principal da semana de referência;Membros das Forças Armadas / Auxiliares;MEMBROS FORÇAS ARMADAS/AUXILIARES;ocupacao / OCUPACAO_N;ocupacao
+D24 - Ocupação;Ocupação no trabalho principal da semana de referência;Ocupações Mal Definidas / Não Declaradas;OCUP.MAL DEF./NÃO DECLARADAS;ocupacao / OCUPACAO_N;ocupacao
+D24 - Ocupação;Ocupação no trabalho principal da semana de referência;Profissionais das Ciências e Artes;PROFISSIONAIS DAS CIÊNCIAS/ARTES;ocupacao / OCUPACAO_N;ocupacao
+D24 - Ocupação;Ocupação no trabalho principal da semana de referência;Trabalhadores Agrícolas;TRAB. AGRÍCOLAS;ocupacao / OCUPACAO_N;ocupacao
+D24 - Ocupação;Ocupação no trabalho principal da semana de referência;Trabalhador de Serviços Administrativos;TRAB. DE SERV. ADM.;ocupacao / OCUPACAO_N;ocupacao
+D24 - Ocupação;Ocupação no trabalho principal da semana de referência;Trabalhadores dos Serviços;TRAB. DOS SERVIÇOS;ocupacao / OCUPACAO_N;ocupacao
+D24 - Ocupação;Ocupação no trabalho principal da semana de referência;Trabalhador da Produção, Reparo e Manutenção;TRAB.DA PRODUÇÃO/REPAR./MANUT.;ocupacao / OCUPACAO_N;ocupacao
+D24 - Ocupação;Ocupação no trabalho principal da semana de referência;Técnicos de Nível Médio;TÉCNICOS DE NÍVEL MÉDIO;ocupacao / OCUPACAO_N;ocupacao
+D24 - Ocupação;Ocupação no trabalho principal da semana de referência;Vendas / Prestação de Serviços de Comércio;VEND./PREST. DE SERV. COMÉRCIO;ocupacao / OCUPACAO_N;ocupacao
+D23 - Setor de Atividade;Nome do setor da atividade principal do empreendimento no trabalho principal da semana de referência;não disponível;;ATIVI;ATIVI
+D23 - Setor de Atividade;Nome do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Sem definição Precisa;.....;ATIVI;ATIVI
+D23 - Setor de Atividade;Nome do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Administração Pública;ADMPU;ATIVI;ATIVI
+D23 - Setor de Atividade;Nome do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Agricultura;AGRIC;ATIVI;ATIVI
+D23 - Setor de Atividade;Nome do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Comércio;COMER;ATIVI;ATIVI
+D23 - Setor de Atividade;Nome do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Construção;CONST;ATIVI;ATIVI
+D23 - Setor de Atividade;Nome do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Indústria;INDUS;ATIVI;ATIVI
+D23 - Setor de Atividade;Nome do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Mal Definidos;MALDE;ATIVI;ATIVI
+D23 - Setor de Atividade;Nome do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Outros;OUTRO;ATIVI;ATIVI
+D23 - Setor de Atividade;Nome do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Serviços;SERVI;ATIVI;ATIVI
+D23 - Setor de Atividade;Nome do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Transporte;TRANS;ATIVI;ATIVI
+D01 - Área (Urbana ou Rural);Situação Censitária (Urbana ou Rural);Rural;RUR;AREA;AREA
+D01 - Área (Urbana ou Rural);Situação Censitária (Urbana ou Rural);Urbana;URB;AREA;AREA
+D07 - Estado no Mercado de Trabalho;Estado no Mercado de Trabalho (Ocupado, Desemregado (30 dias), Inativo e Criança);Não Aplicável;....;ESTADO;ESTADO
+D07 - Estado no Mercado de Trabalho;Estado no Mercado de Trabalho (Ocupado, Desemregado (30 dias), Inativo e Criança);Criança;CRIA;ESTADO;ESTADO
+D07 - Estado no Mercado de Trabalho;Estado no Mercado de Trabalho (Ocupado, Desemregado (30 dias), Inativo e Criança);Desempregado (30 dias);DESE;ESTADO;ESTADO
+D07 - Estado no Mercado de Trabalho;Estado no Mercado de Trabalho (Ocupado, Desemregado (30 dias), Inativo e Criança);Inativo;INAT;ESTADO;ESTADO
+D07 - Estado no Mercado de Trabalho;Estado no Mercado de Trabalho (Ocupado, Desemregado (30 dias), Inativo e Criança);Ocupado;OCUP;ESTADO;ESTADO
+D12 - Condição de Ocupação;Condição de ocupação na semana de referência para pessoas de 10 anos ou mais de idade;Não se Aplica;;OCUP_IBGE;OCUP_IBGE
+D12 - Condição de Ocupação;Condição de ocupação na semana de referência para pessoas de 10 anos ou mais de idade;Desocupado;DESO;OCUP_IBGE;OCUP_IBGE
+D12 - Condição de Ocupação;Condição de ocupação na semana de referência para pessoas de 10 anos ou mais de idade;Ocupado;OCUP;OCUP_IBGE;OCUP_IBGE
+D08 - Faixa de Anos de Estudo;Faixa de anos de estudo;Não Aplicável;.....;FXEDU1;FXEDU1
+D08 - Faixa de Anos de Estudo;Faixa de anos de estudo;00 a 01 ano de estudo;00A01;FXEDU1;FXEDU1
+D08 - Faixa de Anos de Estudo;Faixa de anos de estudo;01 a 03 anos de estudo;01A03;FXEDU1;FXEDU1
+D08 - Faixa de Anos de Estudo;Faixa de anos de estudo;04 a 07 anos de estudo;04A07;FXEDU1;FXEDU1
+D08 - Faixa de Anos de Estudo;Faixa de anos de estudo;08 a 10 anos de estudo;08A10;FXEDU1;FXEDU1
+D08 - Faixa de Anos de Estudo;Faixa de anos de estudo;11 ou mais anos de estudo;11E++;FXEDU1;FXEDU1
+D11 - Gênero;Gênero;Homem;HOM;genero;genero
+D11 - Gênero;Gênero;Mulher;MUL;genero;genero
+D03 - Chefe do Domicílio;Chefe do Domicílio;Não chefe de domicílio;0;chefed;chefed
+D03 - Chefe do Domicílio;Chefe do Domicílio;Chefe de domicílio;1;chefed;chefed
+Ocupação Agregada no trabalho principal da semana de referência;Ocupação Agregada no trabalho principal da semana de referência;"Membros das Forças Armadas / Auxiliares; Ocupações Mal Definidas / Não Declaradas";;ocup_agreg;ocup_agreg
+Ocupação Agregada no trabalho principal da semana de referência;Ocupação Agregada no trabalho principal da semana de referência;"Dirigentes em Geral; Vendas / Prestação de Serviços de Comércio; Trabalhador da Produção, Reparo e Manutenção";1;ocup_agreg;ocup_agreg
+Ocupação Agregada no trabalho principal da semana de referência;Ocupação Agregada no trabalho principal da semana de referência;"Trabalhador de Serviços Administrativos; Vendas / Prestação de Serviços de Comércio; Trabalhador da Produção, Reparo e Manutenção";2;ocup_agreg;ocup_agreg
+Ocupação Agregada no trabalho principal da semana de referência;Ocupação Agregada no trabalho principal da semana de referência;"Trabalhadores dos Serviços; Trabalhadores Agrícolas";3;ocup_agreg;ocup_agreg
+D13 - Metropolitana (PME);Binária - Situação Censitária;Não Metropolitano PME;0;MET1;MET1
+D13 - Metropolitana (PME);Binária - Situação Censitária;Metropolitano PME;1;MET1;MET1
+Condição de ocupação pelo Critério do Lauro;Condição de ocupação pelo Critério do Lauro;;;OCUPN;OCUPN
+Condição de ocupação pelo Critério do Lauro;Condição de ocupação pelo Critério do Lauro;;1;OCUPN;OCUPN
+Condição de ocupação pelo Critério do Lauro;Condição de ocupação pelo Critério do Lauro;;2;OCUPN;OCUPN
+Condição de ocupação pelo Critério do Lauro;Condição de ocupação pelo Critério do Lauro;;3;OCUPN;OCUPN
+D02 - Carteira de Trabalho Assinada;Situação da carteira de trabalho;Empregado sem carteira assinada;0;CCART;CCART
+D02 - Carteira de Trabalho Assinada;Situação da carteira de trabalho;Empregado com carteira assinada;1;CCART;CCART
+D02 - Carteira de Trabalho Assinada;Situação da carteira de trabalho;Empregado público ou militar;2;CCART;CCART
+Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Não se Aplica;;SETOR;SETOR
+Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Agriicultura;1;SETOR;SETOR
+Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Indústria;2;SETOR;SETOR
+Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Indústria;3;SETOR;SETOR
+Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Indústria;4;SETOR;SETOR
+Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Construção;5;SETOR;SETOR
+Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Comércio;6;SETOR;SETOR
+Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Outros;7;SETOR;SETOR
+Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Transporte;8;SETOR;SETOR
+Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Serviço;9;SETOR;SETOR
+Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Administração Pública;10;SETOR;SETOR
+Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Serviço;11;SETOR;SETOR
+Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Outros;12;SETOR;SETOR
+Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Serviço;13;SETOR;SETOR
+Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Código do setor da atividade principal do empreendimento no trabalho principal da semana de referência;Mal Definidas;14;SETOR;SETOR
+D10 - Frequenta Escola ou Creche;Variável Binária - Frequenta Escola e/ou Creche;Não frequenta escola ou creche;0;FREQUENTA;FREQUENTA
+D10 - Frequenta Escola ou Creche;Variável Binária - Frequenta Escola e/ou Creche;Frequenta escola ou creche;1;FREQUENTA;FREQUENTA
+D25 - Trabalho Semanal Maior do que 15 horas;Trabalhou mais de 15 horas semanais;Não trabalha mais de 15 horas por semana;0;HORAS;HORAS
+D25 - Trabalho Semanal Maior do que 15 horas;Trabalhou mais de 15 horas semanais;Trabalha mais de 15 horas por semana;1;HORAS;HORAS
+D25 - Trabalho Semanal Maior do que 15 horas;Trabalhou mais de 15 horas semanais;Não se Aplica;100;HORAS;HORAS
+D25 - Trabalho Semanal Maior do que 15 horas;Trabalhou mais de 15 horas semanais;Não se Aplica;200;HORAS;HORAS
+D25 - Trabalho Semanal Maior do que 15 horas;Trabalhou mais de 15 horas semanais;Não se Aplica;300;HORAS;HORAS
+Identificador do Domicílio;Identificador do Domicílio;;;DOMICILIOID;
+Identificador da Família;Identificador da Família;;;familiaid;
+Peso da pessoa;Peso da pessoa;;;PESO;
+Número de anos no trabalho principal da semana de referência, contados até a data de referência;Número de anos no trabalho principal da semana de referência, contados até a data de referência;;;TEMPO_ANOS;
+Número de meses no trabalho principal da semana de referência, contados até a data de referência;Número de meses no trabalho principal da semana de referência, contados até a data de referência;;;TEMPO_MESES;
+Rendimento mensal de todas as fontes, considerando a renda de menores de 10 anos;Rendimento mensal de todas as fontes, considerando a renda de menores de 10 anos;;;RENDA1;
+Rendimento mensal de todas as fontes para pessoas de 10 anos ou mais de idade;Rendimento mensal de todas as fontes para pessoas de 10 anos ou mais de idade;;;RENDA2;
+Rendimento de Aposentadoria, Pensão, Abono permanência, Doação de não morador, Aluguel, Juros, dividendos e transferências;Rendimento de Aposentadoria, Pensão, Abono permanência, Doação de não morador, Aluguel, Juros, dividendos e transferências;;;RNTRAB;
+Rendimento de Aposentadoria, Pensão, outros tipos de Aposentadoria e Pensão, Abono permanência e Doação de não morador;Rendimento de Aposentadoria, Pensão, outros tipos de Aposentadoria e Pensão, Abono permanência e Doação de não morador;;;RTRANS;
+Salário mensal  do trabalho Principal;Salário mensal  do trabalho Principal;;;SALMP;
+Salário mensal de todos os trabalhos;Salário mensal de todos os trabalhos;;;salmt;
+Rendimento de Aluguel, Juros, dividendos, transferências (Programas Socias);Rendimento de Aluguel, Juros, dividendos, transferências (Programas Socias);;;RATIV;
+Número de horas habitualmente trabalhadas por semana no trabalho principal da semana de referência;Número de horas habitualmente trabalhadas por semana no trabalho principal da semana de referência;;;HORAS_T;
+Idade do morador na data de referência;Idade do morador na data de referência;;;IDADE;
+Anos de Estudo;Anos de Estudo;;;EDUCA;EDUCA
+Anos de Estudo;Anos de Estudo;;0;EDUCA;EDUCA
+Anos de Estudo;Anos de Estudo;;1;EDUCA;EDUCA
+Anos de Estudo;Anos de Estudo;;2;EDUCA;EDUCA
+Anos de Estudo;Anos de Estudo;;3;EDUCA;EDUCA
+Anos de Estudo;Anos de Estudo;;4;EDUCA;EDUCA
+Anos de Estudo;Anos de Estudo;;5;EDUCA;EDUCA
+Anos de Estudo;Anos de Estudo;;6;EDUCA;EDUCA
+Anos de Estudo;Anos de Estudo;;7;EDUCA;EDUCA
+Anos de Estudo;Anos de Estudo;;8;EDUCA;EDUCA
+Anos de Estudo;Anos de Estudo;;9;EDUCA;EDUCA
+Anos de Estudo;Anos de Estudo;;10;EDUCA;EDUCA
+Anos de Estudo;Anos de Estudo;;11;EDUCA;EDUCA
+Anos de Estudo;Anos de Estudo;;12;EDUCA;EDUCA
+Anos de Estudo;Anos de Estudo;;13;EDUCA;EDUCA
+Anos de Estudo;Anos de Estudo;;14;EDUCA;EDUCA
+Anos de Estudo;Anos de Estudo;;15;EDUCA;EDUCA
+Anos de Estudo;Anos de Estudo;;16;EDUCA;EDUCA
+Anos de Estudo;Anos de Estudo;;17;EDUCA;EDUCA
+População Economicamente Ativa pelo Critério do Lauro;População Economicamente Ativa pelo Critério do Lauro;;;pea;
+M01 - Contagem de Registros;População Residente Estimada;Número de Pessoas;;Variáveis Calculadas;Variáveis Calculadas
+M02 - Média da Renda (Todas as fontes, considerando a renda de menores de 10 anos);Rendimento mensal médio de todas as fontes, considerando a renda de menores de 10 anos (R$ 1,00 em 2012);R$ (1,00) em 2012;;Variáveis Calculadas;Variáveis Calculadas
+M03 - Média da Renda (Todas as fontes, desconsiderando a renda de menores de 10 anos);Rendimento mensal médio de todas as fontes para pessoas de 10 anos ou mais de idade (R$ 1,00 em 2012);R$ (1,00) em 2012;;Variáveis Calculadas;Variáveis Calculadas
+M04 - Média Salarial (Trabalho Principal);Salário mensal médio do trabalho Principal (R$ 1,00 em 2012);R$ (1,00) em 2012;;Variáveis Calculadas;Variáveis Calculadas
+M05 - Média Salarial (Todos os Trabalhos);Salário mensal médio de todos os trabalhos (R$ 1,00 em 2012);R$ (1,00) em 2012;;Variáveis Calculadas;Variáveis Calculadas
+M06 - Média da Renda Não Trabalho (Renda de Transferências + renda de ativos);Rendimento Médio Mensal referente à Aposentadoria, Pensão, Abono permanência, Doação de não morador, Aluguel, Juros, dividendos e transferências (R$ 1,00 em 2012);R$ (1,00) em 2012;;Variáveis Calculadas;Variáveis Calculadas
+M07 - Média da Renda de Transferências (Aposentadoria, Pensão, Abono permanência, Doação de não morador);Rendimento Médio referente à Aposentadoria, Pensão, outros tipos de Aposentadoria e Pensão, Abono permanência e Doação de não morador (R$ 1,00 em 2012);R$ (1,00) em 2012;;Variáveis Calculadas;Variáveis Calculadas
+M08 - Média da Renda de Ativos (Aluguel, Juros, Dividendos e Transferências oriundas de programas sociais);Rendimento Médio de Aluguel, Juros, dividendos, transferências (Programas Socias) (R$ 1,00 em 2012);R$ (1,00) em 2012;;Variáveis Calculadas;Variáveis Calculadas
+M09 - Média de Tempo no Trabalho Principal (em anos);Número Médio de anos no trabalho principal da semana de referência, contados até a data de referência;Anos;;Variáveis Calculadas;Variáveis Calculadas
+M10 - Média de Tempo no Trabalho Principal (em meses);Número Médio de meses no trabalho principal da semana de referência, contados até a data de referência;Meses;;Variáveis Calculadas;Variáveis Calculadas
+M11 - Média de Horas Trabalhadas na Semana de Referência;Número Médio de horas habitualmente trabalhadas por semana no trabalho principal da semana de referência;Horas;;Variáveis Calculadas;Variáveis Calculadas
+M12 - Média de Anos de Estudo;Média de Anos de Estudo;Anos;;Variáveis Calculadas;Variáveis Calculadas
+M13 - Média de Indivíduos que possuem Trabalho com Carteira Assinada;Média de Indivíduos que possuem Trabalho com Carteira Assinada;Número de Pessoas;;Variáveis Calculadas;Variáveis Calculadas
+M14 - Média de Idade da Família;Média de Idade da Família;Idade;;Variáveis Calculadas;Variáveis Calculadas
+M15 - Somatório da Renda de Todas as Fontes (considerando a renda de menores de 10 anos);Rendimento mensal de todas as fontes, considerando a renda de menores de 10 anos (R$ 1,00 em 2012);R$ (1,00) em 2012;;Variáveis Calculadas;Variáveis Calculadas
+M16 - Somatório da Renda de Todas as Fontes (desconsiderando a renda de menores de 10 anos);Rendimento mensal de todas as fontes para pessoas de 10 anos ou mais de idade (R$ 1,00 em 2012);R$ (1,00) em 2012;;Variáveis Calculadas;Variáveis Calculadas
+M17 - Somatório Salarial do Trabalho Principal;Salário mensal do trabalho Principal (R$ 1,00 em 2012);R$ (1,00) em 2012;;Variáveis Calculadas;Variáveis Calculadas
+M18 - Somatório Salarial de Todos os Trabalhos;Salário mensal de todos os trabalhos (R$ 1,00 em 2012);R$ (1,00) em 2012;;Variáveis Calculadas;Variáveis Calculadas
+M19 - Somatório da Renda Não Trabalho (Renda de transferências + Renda de ativos);Rendimento Mensal referente à Aposentadoria, Pensão, Abono permanência, Doação de não morador, Aluguel, Juros, dividendos e transferências (R$ 1,00 em 2012);R$ (1,00) em 2012;;Variáveis Calculadas;Variáveis Calculadas
+M20 - Somatório da Renda de Transferências (Aposentadoria, Pensão, Abono permanência, Doação de não morador);Rendimento referente à Aposentadoria, Pensão, outros tipos de Aposentadoria e Pensão, Abono permanência e Doação de não morador (R$ 1,00 em 2012);R$ (1,00) em 2012;;Variáveis Calculadas;Variáveis Calculadas
+M21 - Somatório da Renda de Ativos (Aluguel, Juros, Dividendos e Transferências oriundas de programas sociais);Rendimento de Aluguel, Juros, dividendos, transferências (Programas Socias) (R$ 1,00 em 2012);R$ (1,00) em 2012;;Variáveis Calculadas;Variáveis Calculadas
+M22 - Somatório de Tempo no Trabalho Principal (em anos);Número de anos no trabalho principal da semana de referência, contados até a data de referência;Anos;;Variáveis Calculadas;Variáveis Calculadas
+M23 - Somatório de Tempo no Trabalho Principal (em meses);Número de meses no trabalho principal da semana de referência, contados até a data de referência;Meses;;Variáveis Calculadas;Variáveis Calculadas
+M24 - Somatório de Horas Trabalhadas na Semana de Referência;Número de horas habitualmente trabalhadas por semana no trabalho principal da semana de referência;Horas;;Variáveis Calculadas;Variáveis Calculadas
+M25 - Somatório de Anos de Estudo;Somatório de Anos de Estudo;Anos;;Variáveis Calculadas;Variáveis Calculadas
+M26 - Somatório de Indivíduos que possuem Carteira Assinada;Somatório de Indivíduos que possuem Carteira Assinada;Número de Pessoas;;Variáveis Calculadas;Variáveis Calculadas
+M27 - Somatório de Idade da Família;Somatório de Idade da Família;Idade;;Variáveis Calculadas;Variáveis Calculadas

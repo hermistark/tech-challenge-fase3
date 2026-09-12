@@ -1,0 +1,376 @@
+id_tabela,nome_coluna,chave,cobertura_temporal,valor
+turma,rede,1,(1),Federal
+matricula,rede,1,(1),Federal
+docente,rede,1,(1),Federal
+escola,rede,1,(1),Federal
+docente,rede,4,(1),Privada
+turma,rede,4,(1),Privada
+matricula,rede,4,(1),Privada
+escola,rede,4,(1),Privada
+matricula,rede,2,(1),Estadual
+escola,rede,2,(1),Estadual
+turma,rede,2,(1),Estadual
+docente,rede,2,(1),Estadual
+escola,rede,3,(1),Municipal
+matricula,rede,3,(1),Municipal
+docente,rede,3,(1),Municipal
+turma,rede,3,(1),Municipal
+docente,sexo,2,(1),Feminino
+matricula,sexo,2,(1),Feminino
+matricula,sexo,1,(1),Masculino
+docente,sexo,1,(1),Masculino
+matricula,raca_cor,3,(1),Parda
+docente,raca_cor,3,(1),Parda
+matricula,raca_cor,2,(1),Preta
+docente,raca_cor,2,(1),Preta
+docente,raca_cor,1,(1),Branca
+matricula,raca_cor,1,(1),Branca
+docente,raca_cor,4,(1),Amarela
+matricula,raca_cor,4,(1),Amarela
+docente,raca_cor,5,(1),Indígena
+matricula,raca_cor,5,(1),Indígena
+matricula,raca_cor,0,(1),Não declarada
+docente,raca_cor,0,(1),Não declarada
+escola,tipo_aee,0,(1),Não oferece
+escola,tipo_aee,2,(1),Exclusivamente
+escola,tipo_aee,1,(1),Não exclusivamente
+matricula,unificada,0,(1),Não
+matricula,unificada,3,(1),Multi
+matricula,unificada,1,(1),Unificada
+matricula,unificada,2,(1),Multietapa
+matricula,unificada,4,(1),Correção de Fluxo
+matricula,unificada,5,(1),Mista (concomitante e subsequente)
+docente,tipo_ies_1,2,(1),Privada
+docente,tipo_ies_1,1,(1),Pública
+docente,tipo_ies_2,2,(1),Privada
+docente,tipo_ies_2,1,(1),Pública
+docente,tipo_ies_3,2,(1),Privada
+docente,tipo_ies_3,1,(1),Pública
+docente,tipo_turma,0,(1)2018,Não se aplica
+matricula,tipo_turma,0,(1)2018,Não se aplica
+turma,tipo_turma,0,(1)2018,Não se aplica
+matricula,tipo_turma,1,(1)2018,Classe Hospitalar
+docente,tipo_turma,1,(1)2018,Classe Hospitalar
+turma,tipo_turma,1,(1)2018,Classe Hospitalar
+matricula,tipo_turma,3,(1)2018,Unidade Prisional
+docente,tipo_turma,3,(1)2018,Unidade Prisional
+turma,tipo_turma,3,(1)2018,Unidade Prisional
+matricula,tipo_turma,4,(1)2018,Atendimento Complementar
+turma,tipo_turma,4,(1)2018,Atendimento Complementar
+docente,tipo_turma,4,(1)2018,Atendimento Complementar
+docente,tipo_turma,2,(1),Unidade de Internação Socioeducativa
+matricula,tipo_turma,2,(1),Unidade de Internação Socioeducativa
+turma,tipo_turma,2,(1),Unidade de Internação Socioeducativa
+matricula,tipo_turma,5,(1)2018,Atendimento Educacional Especializado (AEE)
+docente,tipo_turma,5,(1)2018,Atendimento Educacional Especializado (AEE)
+turma,tipo_turma,5,(1)2018,Atendimento Educacional Especializado (AEE)
+docente,escolaridade,3,2015(1),Ensino Médio
+docente,escolaridade,5,2009(1)2014,Ensino Médio
+docente,escolaridade,2,(1),Fundamental Completo
+docente,escolaridade,1,(1),Fundamental Incompleto
+docente,escolaridade,6,2009(1)2010,Ensino Superior Completo
+docente,escolaridade,4,2015(1),Ensino Superior Completo
+docente,escolaridade,3,2009(1)2014,Ensino Médio - Normal/Magistério
+docente,escolaridade,6,2011(1)2014,Ensino Superior (Concluído ou em Andamento)
+docente,escolaridade,4,2009(1)2014,Ensino Médio - Normal/Magistério Específico Indígena
+docente,etapa_ensino,71,2015(1),EJA - Ensino Médio
+turma,etapa_ensino,71,2015(1),EJA - Ensino Médio
+matricula,etapa_ensino,71,2015(1),EJA - Ensino Médio
+turma,etapa_ensino,68,2015(1),Curso FIC Concomitante
+matricula,etapa_ensino,68,2015(1),Curso FIC Concomitante
+docente,etapa_ensino,68,2015(1),Curso FIC Concomitante
+docente,etapa_ensino,1,(1),Educação Infantil - Creche
+turma,etapa_ensino,1,(1),Educação Infantil - Creche
+matricula,etapa_ensino,1,(1),Educação Infantil - Creche
+matricula,etapa_ensino,29,(1),Ensino Médio - Não Seriada
+docente,etapa_ensino,29,(1),Ensino Médio - Não Seriada
+turma,etapa_ensino,29,(1),Ensino Médio - Não Seriada
+turma,etapa_ensino,3,(1),Educação Infantil - Unificada
+matricula,etapa_ensino,3,(1),Educação Infantil - Unificada
+docente,etapa_ensino,3,(1),Educação Infantil - Unificada
+matricula,etapa_ensino,45,(1),EJA - Presencial - Ensino Médio
+docente,etapa_ensino,45,(1),EJA - Presencial - Ensino Médio
+turma,etapa_ensino,45,(1),EJA - Presencial - Ensino Médio
+matricula,etapa_ensino,2,(1),Educação Infantil - Pré-escola
+turma,etapa_ensino,2,(1),Educação Infantil - Pré-escola
+docente,etapa_ensino,2,(1),Educação Infantil - Pré-escola
+docente,etapa_ensino,48,(1),EJA - Semipresencial - Ensino Médio
+matricula,etapa_ensino,48,(1),EJA - Semipresencial - Ensino Médio
+turma,etapa_ensino,48,(1),EJA - Semipresencial - Ensino Médio
+turma,etapa_ensino,12,(1)2018,Ensino Fundamental de 8 anos - Multi
+docente,etapa_ensino,12,(1)2018,Ensino Fundamental de 8 anos - Multi
+matricula,etapa_ensino,12,(1)2018,Ensino Fundamental de 8 anos - Multi
+matricula,etapa_ensino,22,(1),Ensino Fundamental de 9 anos - Multi
+turma,etapa_ensino,22,(1),Ensino Fundamental de 9 anos - Multi
+docente,etapa_ensino,22,(1),Ensino Fundamental de 9 anos - Multi
+docente,etapa_ensino,70,2015(1),EJA - Ensino Fundamental - Anos Finais
+turma,etapa_ensino,70,2015(1),EJA - Ensino Fundamental - Anos Finais
+matricula,etapa_ensino,70,2015(1),EJA - Ensino Fundamental - Anos Finais
+turma,etapa_ensino,14,(1),Ensino Fundamental de 9 anos - 1º Ano
+docente,etapa_ensino,14,(1),Ensino Fundamental de 9 anos - 1º Ano
+matricula,etapa_ensino,14,(1),Ensino Fundamental de 9 anos - 1º Ano
+docente,etapa_ensino,15,(1),Ensino Fundamental de 9 anos - 2º Ano
+matricula,etapa_ensino,15,(1),Ensino Fundamental de 9 anos - 2º Ano
+turma,etapa_ensino,15,(1),Ensino Fundamental de 9 anos - 2º Ano
+docente,etapa_ensino,16,(1),Ensino Fundamental de 9 anos - 3º Ano
+turma,etapa_ensino,16,(1),Ensino Fundamental de 9 anos - 3º Ano
+matricula,etapa_ensino,16,(1),Ensino Fundamental de 9 anos - 3º Ano
+turma,etapa_ensino,17,(1),Ensino Fundamental de 9 anos - 4º Ano
+docente,etapa_ensino,17,(1),Ensino Fundamental de 9 anos - 4º Ano
+matricula,etapa_ensino,17,(1),Ensino Fundamental de 9 anos - 4º Ano
+matricula,etapa_ensino,18,(1),Ensino Fundamental de 9 anos - 5º Ano
+turma,etapa_ensino,18,(1),Ensino Fundamental de 9 anos - 5º Ano
+docente,etapa_ensino,18,(1),Ensino Fundamental de 9 anos - 5º Ano
+turma,etapa_ensino,19,(1),Ensino Fundamental de 9 anos - 6º Ano
+matricula,etapa_ensino,19,(1),Ensino Fundamental de 9 anos - 6º Ano
+docente,etapa_ensino,19,(1),Ensino Fundamental de 9 anos - 6º Ano
+matricula,etapa_ensino,20,(1),Ensino Fundamental de 9 anos - 7º Ano
+docente,etapa_ensino,20,(1),Ensino Fundamental de 9 anos - 7º Ano
+turma,etapa_ensino,20,(1),Ensino Fundamental de 9 anos - 7º Ano
+docente,etapa_ensino,21,(1),Ensino Fundamental de 9 anos - 8º Ano
+turma,etapa_ensino,21,(1),Ensino Fundamental de 9 anos - 8º Ano
+matricula,etapa_ensino,21,(1),Ensino Fundamental de 9 anos - 8º Ano
+turma,etapa_ensino,41,(1),Ensino Fundamental de 9 anos - 9º Ano
+docente,etapa_ensino,41,(1),Ensino Fundamental de 9 anos - 9º Ano
+matricula,etapa_ensino,41,(1),Ensino Fundamental de 9 anos - 9º Ano
+matricula,etapa_ensino,69,2015(1),EJA - Ensino Fundamental - Anos Iniciais
+docente,etapa_ensino,69,2015(1),EJA - Ensino Fundamental - Anos Iniciais
+turma,etapa_ensino,69,2015(1),EJA - Ensino Fundamental - Anos Iniciais
+matricula,etapa_ensino,4,(1)2018,Ensino Fundamental de 8 anos - 1ª Série
+docente,etapa_ensino,4,(1)2018,Ensino Fundamental de 8 anos - 1ª Série
+turma,etapa_ensino,4,(1)2018,Ensino Fundamental de 8 anos - 1ª Série
+turma,etapa_ensino,5,(1)2018,Ensino Fundamental de 8 anos - 2ª Série
+docente,etapa_ensino,5,(1)2018,Ensino Fundamental de 8 anos - 2ª Série
+matricula,etapa_ensino,5,(1)2018,Ensino Fundamental de 8 anos - 2ª Série
+turma,etapa_ensino,6,(1)2018,Ensino Fundamental de 8 anos - 3ª Série
+docente,etapa_ensino,6,(1)2018,Ensino Fundamental de 8 anos - 3ª Série
+matricula,etapa_ensino,6,(1)2018,Ensino Fundamental de 8 anos - 3ª Série
+matricula,etapa_ensino,7,(1)2018,Ensino Fundamental de 8 anos - 4ª Série
+docente,etapa_ensino,7,(1)2018,Ensino Fundamental de 8 anos - 4ª Série
+turma,etapa_ensino,7,(1)2018,Ensino Fundamental de 8 anos - 4ª Série
+turma,etapa_ensino,8,(1)2018,Ensino Fundamental de 8 anos - 5ª Série
+docente,etapa_ensino,8,(1)2018,Ensino Fundamental de 8 anos - 5ª Série
+matricula,etapa_ensino,8,(1)2018,Ensino Fundamental de 8 anos - 5ª Série
+turma,etapa_ensino,9,(1)2018,Ensino Fundamental de 8 anos - 6ª Série
+matricula,etapa_ensino,9,(1)2018,Ensino Fundamental de 8 anos - 6ª Série
+docente,etapa_ensino,9,(1)2018,Ensino Fundamental de 8 anos - 6ª Série
+turma,etapa_ensino,10,(1)2018,Ensino Fundamental de 8 anos - 7ª Série
+matricula,etapa_ensino,10,(1)2018,Ensino Fundamental de 8 anos - 7ª Série
+docente,etapa_ensino,10,(1)2018,Ensino Fundamental de 8 anos - 7ª Série
+docente,etapa_ensino,11,(1)2018,Ensino Fundamental de 8 anos - 8ª Série
+matricula,etapa_ensino,11,(1)2018,Ensino Fundamental de 8 anos - 8ª Série
+turma,etapa_ensino,11,(1)2018,Ensino Fundamental de 8 anos - 8ª Série
+turma,etapa_ensino,13,(1)2018,Ensino Fundamental de 8 anos - Correção de Fluxo
+docente,etapa_ensino,13,(1)2018,Ensino Fundamental de 8 anos - Correção de Fluxo
+matricula,etapa_ensino,13,(1)2018,Ensino Fundamental de 8 anos - Correção de Fluxo
+matricula,etapa_ensino,23,(1),Ensino Fundamental de 9 anos - Correção de Fluxo
+turma,etapa_ensino,23,(1),Ensino Fundamental de 9 anos - Correção de Fluxo
+docente,etapa_ensino,23,(1),Ensino Fundamental de 9 anos - Correção de Fluxo
+matricula,etapa_ensino,56,(1),Educação Infantil e Ensino Fundamental Multietapa
+docente,etapa_ensino,56,(1),Educação Infantil e Ensino Fundamental Multietapa
+turma,etapa_ensino,56,(1),Educação Infantil e Ensino Fundamental Multietapa
+turma,etapa_ensino,24,(1)2018,Ensino Fundamental de 8 e 9 anos - Multi 8 e 9 anos
+docente,etapa_ensino,24,(1)2018,Ensino Fundamental de 8 e 9 anos - Multi 8 e 9 anos
+matricula,etapa_ensino,24,(1)2018,Ensino Fundamental de 8 e 9 anos - Multi 8 e 9 anos
+turma,etapa_ensino,67,2015(1),Curso FIC integrado na modalidade EJA - Nível Médio
+docente,etapa_ensino,67,2015(1),Curso FIC integrado na modalidade EJA - Nível Médio
+matricula,etapa_ensino,67,2015(1),Curso FIC integrado na modalidade EJA - Nível Médio
+turma,etapa_ensino,72,2015(1),EJA - Ensino Fundamental - Anos Iniciais e Anos Finais
+matricula,etapa_ensino,72,2015(1),EJA - Ensino Fundamental - Anos Iniciais e Anos Finais
+docente,etapa_ensino,72,2015(1),EJA - Ensino Fundamental - Anos Iniciais e Anos Finais
+docente,etapa_ensino,62,(1),EJA - Presencial - Integrada à Ed. Profissional de Nível Médio
+turma,etapa_ensino,62,(1),EJA - Presencial - Integrada à Ed. Profissional de Nível Médio
+matricula,etapa_ensino,62,(1),EJA - Presencial - Integrada à Ed. Profissional de Nível Médio
+docente,etapa_ensino,44,(1),EJA - Presencial - 5ª a 8ª Série / EJA - Presencial - Anos Finais
+matricula,etapa_ensino,44,(1),EJA - Presencial - 5ª a 8ª Série / EJA - Presencial - Anos Finais
+turma,etapa_ensino,44,(1),EJA - Presencial - 5ª a 8ª Série / EJA - Presencial - Anos Finais
+matricula,etapa_ensino,40,(1),Educação Profissional (Subsequente) / Curso Técnico - Subsequente
+turma,etapa_ensino,40,(1),Educação Profissional (Subsequente) / Curso Técnico - Subsequente
+docente,etapa_ensino,40,(1),Educação Profissional (Subsequente) / Curso Técnico - Subsequente
+turma,etapa_ensino,63,(1),EJA - Semipresencial - Integrada à Ed. Profissional de Nível Médio
+matricula,etapa_ensino,63,(1),EJA - Semipresencial - Integrada à Ed. Profissional de Nível Médio
+docente,etapa_ensino,63,(1),EJA - Semipresencial - Integrada à Ed. Profissional de Nível Médio
+turma,etapa_ensino,43,(1),EJA - Presencial - 1ª a 4ª Série / EJA - Presencial - Anos Iniciais
+docente,etapa_ensino,43,(1),EJA - Presencial - 1ª a 4ª Série / EJA - Presencial - Anos Iniciais
+matricula,etapa_ensino,43,(1),EJA - Presencial - 1ª a 4ª Série / EJA - Presencial - Anos Iniciais
+docente,etapa_ensino,39,(1),Educação Profissional (Concomitante) / Curso Técnico - Concomitante
+matricula,etapa_ensino,39,(1),Educação Profissional (Concomitante) / Curso Técnico - Concomitante
+turma,etapa_ensino,39,(1),Educação Profissional (Concomitante) / Curso Técnico - Concomitante
+turma,etapa_ensino,60,(1),EJA - Presencial - Integrada à Ed. Profissional de Nível Fundamental - FIC
+docente,etapa_ensino,60,(1),EJA - Presencial - Integrada à Ed. Profissional de Nível Fundamental - FIC
+matricula,etapa_ensino,60,(1),EJA - Presencial - Integrada à Ed. Profissional de Nível Fundamental - FIC
+matricula,etapa_ensino,46,(1),EJA - Semipresencial - 1ª a 4ª Série / EJA - Semipresencial - Anos Iniciais
+turma,etapa_ensino,46,(1),EJA - Semipresencial - 1ª a 4ª Série / EJA - Semipresencial - Anos Iniciais
+docente,etapa_ensino,46,(1),EJA - Semipresencial - 1ª a 4ª Série / EJA - Semipresencial - Anos Iniciais
+turma,etapa_ensino,61,(1),EJA - Semipresencial - Integrada à Ed. Profissional de Nível Fundamental - FIC
+docente,etapa_ensino,61,(1),EJA - Semipresencial - Integrada à Ed. Profissional de Nível Fundamental - FIC
+matricula,etapa_ensino,61,(1),EJA - Semipresencial - Integrada à Ed. Profissional de Nível Fundamental - FIC
+matricula,etapa_ensino,26,(1),Ensino Médio - 2ª Série / Ensino Médio - 2º ano/2ª Série (2019 em diante)
+docente,etapa_ensino,26,(1),Ensino Médio - 2ª Série / Ensino Médio - 2º ano/2ª Série (2019 em diante)
+turma,etapa_ensino,26,(1),Ensino Médio - 2ª Série / Ensino Médio - 2º ano/2ª Série (2019 em diante)
+matricula,etapa_ensino,27,(1),Ensino Médio - 3ª Série / Ensino Médio - 3º ano/3ª Série (2019 em diante)
+docente,etapa_ensino,27,(1),Ensino Médio - 3ª Série / Ensino Médio - 3º ano/3ª Série (2019 em diante)
+turma,etapa_ensino,27,(1),Ensino Médio - 3ª Série / Ensino Médio - 3º ano/3ª Série (2019 em diante)
+matricula,etapa_ensino,28,(1),Ensino Médio - 4ª Série / Ensino Médio - 4º ano/4ª Série (2019 em diante)
+docente,etapa_ensino,28,(1),Ensino Médio - 4ª Série / Ensino Médio - 4º ano/4ª Série (2019 em diante)
+turma,etapa_ensino,28,(1),Ensino Médio - 4ª Série / Ensino Médio - 4º ano/4ª Série (2019 em diante)
+turma,etapa_ensino,25,(1),Ensino Médio - 1ª Série (até 2018) / Ensino Médio - 1º ano/1ª Série (2019 em diante)
+docente,etapa_ensino,25,(1),Ensino Médio - 1ª Série (até 2018) / Ensino Médio - 1º ano/1ª Série (2019 em diante)
+matricula,etapa_ensino,25,(1),Ensino Médio - 1ª Série (até 2018) / Ensino Médio - 1º ano/1ª Série (2019 em diante)
+matricula,etapa_ensino,74,2015(1),Curso Técnico Integrado na Modalidade EJA (EJA integrada à Educação Profissional de Nível Médio)
+docente,etapa_ensino,74,2015(1),Curso Técnico Integrado na Modalidade EJA (EJA integrada à Educação Profissional de Nível Médio)
+turma,etapa_ensino,74,2015(1),Curso Técnico Integrado na Modalidade EJA (EJA integrada à Educação Profissional de Nível Médio)
+turma,etapa_ensino,47,(1),EJA - Semipresencial - 5ª a 8ª Série (até 2010) / EJA - Semipresencial - Anos Finais (2011 em diante)
+matricula,etapa_ensino,47,(1),EJA - Semipresencial - 5ª a 8ª Série (até 2010) / EJA - Semipresencial - Anos Finais (2011 em diante)
+docente,etapa_ensino,47,(1),EJA - Semipresencial - 5ª a 8ª Série (até 2010) / EJA - Semipresencial - Anos Finais (2011 em diante)
+docente,etapa_ensino,51,(1),EJA Presencial - 1ª a 8ª Série (até 2010) / EJA Presencial - Anos Iniciais e Anos Finais(2011 em diante)
+matricula,etapa_ensino,51,(1),EJA Presencial - 1ª a 8ª Série (até 2010) / EJA Presencial - Anos Iniciais e Anos Finais(2011 em diante)
+turma,etapa_ensino,51,(1),EJA Presencial - 1ª a 8ª Série (até 2010) / EJA Presencial - Anos Iniciais e Anos Finais(2011 em diante)
+turma,etapa_ensino,31,(1),Ensino Médio - Integrado 2ª Série (até 2014) / Curso Técnico Integrado (Ensino Médio Integrado) 2ª Série
+matricula,etapa_ensino,31,(1),Ensino Médio - Integrado 2ª Série (até 2014) / Curso Técnico Integrado (Ensino Médio Integrado) 2ª Série
+docente,etapa_ensino,31,(1),Ensino Médio - Integrado 2ª Série (até 2014) / Curso Técnico Integrado (Ensino Médio Integrado) 2ª Série
+matricula,etapa_ensino,58,(1),EJA Semipresencial - 1ª a 8ª Série (até 2010) / EJA Semipresencial - Anos Iniciais e Anos Finais (2011 em diante)
+docente,etapa_ensino,58,(1),EJA Semipresencial - 1ª a 8ª Série (até 2010) / EJA Semipresencial - Anos Iniciais e Anos Finais (2011 em diante)
+turma,etapa_ensino,58,(1),EJA Semipresencial - 1ª a 8ª Série (até 2010) / EJA Semipresencial - Anos Iniciais e Anos Finais (2011 em diante)
+turma,etapa_ensino,73,2015(1),Curso FIC integrado na modalidade EJA - Nível Fundamental (EJA integrada à Educação Profissional de Nível Fundamental)
+matricula,etapa_ensino,73,2015(1),Curso FIC integrado na modalidade EJA - Nível Fundamental (EJA integrada à Educação Profissional de Nível Fundamental)
+docente,etapa_ensino,73,2015(1),Curso FIC integrado na modalidade EJA - Nível Fundamental (EJA integrada à Educação Profissional de Nível Fundamental)
+docente,etapa_ensino,65,2012(1),EJA - Presencial - Ens. Fundamental Projovem (Urbano) (até 2014 )/ EJA - Ensino Fundamental - Projovem Urbano (2015 em diante)
+turma,etapa_ensino,65,2012(1),EJA - Presencial - Ens. Fundamental Projovem (Urbano) (até 2014 )/ EJA - Ensino Fundamental - Projovem Urbano (2015 em diante)
+matricula,etapa_ensino,65,2012(1),EJA - Presencial - Ens. Fundamental Projovem (Urbano) (até 2014 )/ EJA - Ensino Fundamental - Projovem Urbano (2015 em diante)
+matricula,etapa_ensino,33,(1),Ensino Médio - Integrado 4ª Série (até 2014)/ Curso Técnico Integrado (Ensino Médio Integrado) 4ª Série (2015 em diante)
+turma,etapa_ensino,33,(1),Ensino Médio - Integrado 4ª Série (até 2014)/ Curso Técnico Integrado (Ensino Médio Integrado) 4ª Série (2015 em diante)
+docente,etapa_ensino,33,(1),Ensino Médio - Integrado 4ª Série (até 2014)/ Curso Técnico Integrado (Ensino Médio Integrado) 4ª Série (2015 em diante)
+matricula,etapa_ensino,30,(1),Ensino Médio - Integrado 1ª Série (até 2014) / Curso Técnico Integrado (Ensino Médio Integrado) 1ª Série (2015 em diante)
+turma,etapa_ensino,30,(1),Ensino Médio - Integrado 1ª Série (até 2014) / Curso Técnico Integrado (Ensino Médio Integrado) 1ª Série (2015 em diante)
+docente,etapa_ensino,30,(1),Ensino Médio - Integrado 1ª Série (até 2014) / Curso Técnico Integrado (Ensino Médio Integrado) 1ª Série (2015 em diante)
+docente,etapa_ensino,32,(1),Ensino Médio - Integrado 3ª Série (até 2014) / Curso Técnico Integrado (Ensino Médio Integrado) 3ª Série (2015 em diante)
+turma,etapa_ensino,32,(1),Ensino Médio - Integrado 3ª Série (até 2014) / Curso Técnico Integrado (Ensino Médio Integrado) 3ª Série (2015 em diante)
+matricula,etapa_ensino,32,(1),Ensino Médio - Integrado 3ª Série (até 2014) / Curso Técnico Integrado (Ensino Médio Integrado) 3ª Série (2015 em diante)
+turma,etapa_ensino,34,(1),Ensino Médio - Integrado Não Seriada (até 2014)/ Curso Técnico Integrado (Ensino Médio Integrado) Não Seriada (2015 em diante)
+docente,etapa_ensino,34,(1),Ensino Médio - Integrado Não Seriada (até 2014)/ Curso Técnico Integrado (Ensino Médio Integrado) Não Seriada (2015 em diante)
+matricula,etapa_ensino,34,(1),Ensino Médio - Integrado Não Seriada (até 2014)/ Curso Técnico Integrado (Ensino Médio Integrado) Não Seriada (2015 em diante)
+turma,etapa_ensino,35,(1),Ensino Médio - Normal/Magistério 1ª Série (até 2018) / Ensino Médio - Modalidade Normal/Magistério 1ª Série (2019 em diante)
+matricula,etapa_ensino,35,(1),Ensino Médio - Normal/Magistério 1ª Série (até 2018) / Ensino Médio - Modalidade Normal/Magistério 1ª Série (2019 em diante)
+docente,etapa_ensino,35,(1),Ensino Médio - Normal/Magistério 1ª Série (até 2018) / Ensino Médio - Modalidade Normal/Magistério 1ª Série (2019 em diante)
+turma,etapa_ensino,36,(1),Ensino Médio - Normal/Magistério 2ª Série (até 2018) / Ensino Médio - Modalidade Normal/Magistério 2ª Série (2019 em diante)
+matricula,etapa_ensino,36,(1),Ensino Médio - Normal/Magistério 2ª Série (até 2018) / Ensino Médio - Modalidade Normal/Magistério 2ª Série (2019 em diante)
+docente,etapa_ensino,36,(1),Ensino Médio - Normal/Magistério 2ª Série (até 2018) / Ensino Médio - Modalidade Normal/Magistério 2ª Série (2019 em diante)
+docente,etapa_ensino,38,(1),Ensino Médio - Normal/Magistério 4ª Série (até 2018) / Ensino Médio - Modalidade Normal/Magistério 4ª Série (2019 em diante)
+matricula,etapa_ensino,38,(1),Ensino Médio - Normal/Magistério 4ª Série (até 2018) / Ensino Médio - Modalidade Normal/Magistério 4ª Série (2019 em diante)
+turma,etapa_ensino,38,(1),Ensino Médio - Normal/Magistério 4ª Série (até 2018) / Ensino Médio - Modalidade Normal/Magistério 4ª Série (2019 em diante)
+docente,etapa_ensino,37,(1),Ensino Médio - Normal/Magistério 3ª Série (até 2018) / Ensino Médio - Modalidade Normal/Magistério 3ª Série ( 2019 em diante)
+matricula,etapa_ensino,37,(1),Ensino Médio - Normal/Magistério 3ª Série (até 2018) / Ensino Médio - Modalidade Normal/Magistério 3ª Série ( 2019 em diante)
+turma,etapa_ensino,37,(1),Ensino Médio - Normal/Magistério 3ª Série (até 2018) / Ensino Médio - Modalidade Normal/Magistério 3ª Série ( 2019 em diante)
+matricula,etapa_ensino,64,2010(1),Educação Profissional Mista (Concomitante e Subsequente) (até 2014) / Curso Técnico Misto (Concomitante e Subsequente) (2015 em diante)
+docente,etapa_ensino,64,2010(1),Educação Profissional Mista (Concomitante e Subsequente) (até 2014) / Curso Técnico Misto (Concomitante e Subsequente) (2015 em diante)
+turma,etapa_ensino,64,2010(1),Educação Profissional Mista (Concomitante e Subsequente) (até 2014) / Curso Técnico Misto (Concomitante e Subsequente) (2015 em diante)
+docente,tipo_docente,1,(1),Docente
+docente,tipo_docente,7,2019(1),Guia intérprete
+docente,tipo_docente,4,2011(1),Tradutor Intérprete de Libras
+docente,tipo_docente,3,(1),Profissional/Monitor de Atividade Complementar
+docente,tipo_docente,2,(1),Auxiliar de Educação Infantil / Assistente Educacional
+docente,tipo_docente,6,2015(1),Docente Tutor - Auxiliar (de módulo ou disciplina) – EAD
+docente,tipo_docente,5,2015(1),Docente Titular - coordenador de tutoria (de módulo ou disciplina) - EaD
+docente,tipo_docente,8,2019(1),Profissional de apoio escolar para alunos com deficiência (Lei 13.146/2015)
+docente,nacionalidade,1,(1),Brasileira
+matricula,nacionalidade,1,(1),Brasileira
+matricula,nacionalidade,3,(1),Estrangeira
+docente,nacionalidade,3,(1),Estrangeira
+docente,nacionalidade,2,(1),Brasileira - nascido no exterior ou naturalizado
+matricula,nacionalidade,2,(1),Brasileira - nascido no exterior ou naturalizado
+escola,tipo_rede_local,1,(1),A cabo
+escola,tipo_rede_local,2,(1),Wireless
+escola,tipo_rede_local,9,(1),Não informado
+escola,tipo_rede_local,3,(1),A cabo e Wireless
+escola,tipo_rede_local,0,(1),Não há rede local interligando computadores
+matricula,outro_local_aula,1,(1),Em Hospital
+matricula,outro_local_aula,3,(1),Não Recebe
+matricula,outro_local_aula,2,(1),Em Domicílio
+docente,situacao_curso_1,1,2011(1),Concluído
+docente,situacao_curso_1,2,2011(1),Em andamento
+docente,situacao_curso_2,1,2011(1),Concluído
+docente,situacao_curso_2,2,2011(1),Em andamento
+docente,situacao_curso_3,1,2011(1),Concluído
+docente,situacao_curso_3,2,2011(1),Em andamento
+docente,tipo_contratacao,4,2011(1),Contrato CLT
+docente,tipo_contratacao,2,2011(1),Contrato temporário
+docente,tipo_contratacao,3,2011(1),Contrato terceirizado
+docente,tipo_contratacao,1,2011(1),Concursado/efetivo/estável
+escola,tipo_localizacao,2,(1),Rural
+turma,tipo_localizacao,2,(1),Rural
+escola,tipo_localizacao,1,(1),Urbana
+turma,tipo_localizacao,1,(1),Urbana
+matricula,zona_residencial,0,2007,Zona Rural
+docente,zona_residencial,2,(1),Zona Rural
+matricula,zona_residencial,2,2008(1),Zona Rural
+matricula,zona_residencial,1,(1),Zona Urbana
+docente,zona_residencial,1,(1),Zona Urbana
+matricula,ingresso_federais,2,(1),Sorteio
+matricula,ingresso_federais,3,(1),Transferência
+matricula,ingresso_federais,1,(1),Sem processo seletivo
+matricula,ingresso_federais,8,(1),Outra forma de ingresso
+matricula,ingresso_federais,4,(1),Exame de seleção sem reserva de vaga
+matricula,ingresso_federais,5,(1),"Exame de seleção, vaga reservada para alunos da rede pública de ensino"
+matricula,ingresso_federais,7,(1),"Exame de seleção, vaga reservada para outros programas de ação afirmativa"
+matricula,ingresso_federais,9,(1),"Exame de seleção, vaga reservada para alunos da rede pública de ensino, com baixa renda"
+matricula,ingresso_federais,6,(1),"Exame de seleção, vaga reservada para alunos da rede pública de ensino, com baixa renda e autodeclarado preto, pardo ou indígena"
+turma,tipo_regulamentacao,1,(1),Sim
+turma,tipo_regulamentacao,0,(1),Não
+turma,tipo_regulamentacao,2,(1),Em tramitação
+escola,tipo_lingua_indigena,1,(1),Somente em Língua Indígena
+escola,tipo_lingua_indigena,2,(1),Somente em Língua Portuguesa
+escola,tipo_lingua_indigena,3,(1),Em Língua Indígena e em Língua Portuguesa
+escola,tipo_regulamentacao ,1,(1),Sim
+escola,tipo_regulamentacao ,0,(1),Não
+escola,tipo_regulamentacao ,2,(1),Em tramitação
+escola,tipo_proposta_pedagogica,1,(1),Sim
+escola,tipo_proposta_pedagogica,0,(1),Não
+escola,tipo_proposta_pedagogica,9,(1),Não informado
+escola,tipo_proposta_pedagogica,2,(1),A escola não possui projeto político pedagógico/proposta pedagógica
+turma,tipo_convenio_poder_publico,1,(1),Estadual
+turma,tipo_convenio_poder_publico,2,(1),Municipal
+turma,tipo_convenio_poder_publico,3,(1),Estadual e Municipal
+escola,tipo_atividade_complementar ,0,(1),Não oferece
+escola,tipo_atividade_complementar ,2,(1),Exclusivamente
+escola,tipo_atividade_complementar ,1,(1),Não exclusivamente
+escola,tipo_convenio_poder_publico ,2,(1),Estadual
+escola,tipo_convenio_poder_publico ,1,(1),Municipal
+escola,tipo_convenio_poder_publico ,3,(1),Estadual e Municipal
+escola,tipo_situacao_funcionamento ,2,(1),Paralisada
+escola,tipo_situacao_funcionamento ,1,(1),Em atividade
+escola,tipo_situacao_funcionamento ,3,(1),Extinta (ano do Censo)
+escola,tipo_situacao_funcionamento ,4,(1),Extinta em Anos Anteriores
+escola,tipo_categoria_escola_privada,1,(1),Particular
+turma,tipo_categoria_escola_privada,1,(1),Particular
+turma,tipo_categoria_escola_privada,2,(1),Comunitária
+escola,tipo_categoria_escola_privada,2,(1),Comunitária
+escola,tipo_categoria_escola_privada,3,(1),Confessional
+turma,tipo_categoria_escola_privada,3,(1),Confessional
+turma,tipo_categoria_escola_privada,4,(1),Filantrópica
+escola,tipo_categoria_escola_privada,4,(1),Filantrópica
+turma,tipo_localizacao_diferenciada,0,(1),Não se aplica
+turma,tipo_localizacao_diferenciada,2,(1),Terra indígena
+escola,tipo_localizacao_diferenciada,3,(1),Terra indígena
+escola,tipo_localizacao_diferenciada,2,(1),Área de assentamento
+turma,tipo_localizacao_diferenciada,1,(1),Área de assentamento
+turma,tipo_localizacao_diferenciada,4,2012(1),Unidade de uso sustentável
+turma,tipo_localizacao_diferenciada,3,(1),Área remanescente de quilombos
+turma,tipo_localizacao_diferenciada,5,2012(1),Unidade de uso sustentável em terra indígena
+escola,tipo_localizacao_diferenciada,1,(1),A escola não está em área de localização diferenciada
+escola,tipo_localizacao_diferenciada,4,(1),Área onde se localiza comunidade remanescente de quilombos
+turma,tipo_localizacao_diferenciada,6,2012(1),Unidade de uso sustentável em área remanescente de quilombos
+escola,tipo_local_funcionamento_galpao ,3,(1),Cedido
+escola,tipo_local_funcionamento_galpao ,2,(1),Alugado
+escola,tipo_local_funcionamento_galpao ,1,(1),Próprio
+escola,tipo_local_funcionamento_galpao ,9,(1),Não informado
+escola,tipo_responsavel_regulamentacao ,1,(1),Federal
+escola,tipo_responsavel_regulamentacao ,2,(1),Estadual
+escola,tipo_responsavel_regulamentacao ,3,(1),Municipal
+escola,tipo_responsavel_regulamentacao ,9,(1),Não informado
+escola,tipo_responsavel_regulamentacao ,5,(1),Federal e Estadual
+escola,tipo_responsavel_regulamentacao ,4,(1),Estadual e Municipal
+escola,tipo_responsavel_regulamentacao ,6,(1),"Federal, Estadual e Municipal"
+escola,tipo_local_funcionamento_predio_escolar ,3,(1),Cedido
+escola,tipo_local_funcionamento_predio_escolar ,2,(1),Alugado
+escola,tipo_local_funcionamento_predio_escolar ,1,(1),Próprio
