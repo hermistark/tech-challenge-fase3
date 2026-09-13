@@ -11,6 +11,7 @@ Projeto de análise de dados educacionais sobre alfabetização infantil. O trab
 - [Fase 3 - Modelagem](#fase-3---modelagem)
 - [Fase 4 - Interpretabilidade](#fase-4---interpretabilidade)
 - [Fase 5 - Aplicação estratégica](#fase-5---aplicação-estratégica)
+- [Dashboard executivo](#dashboard-executivo)
 - [Principais achados](#principais-achados)
 - [Limitações e próximos passos](#limitações-e-próximos-passos)
 
@@ -153,28 +154,57 @@ Em `evolucao_temporal`, a média agregada passou aproximadamente de 59,89% em 20
 
 ## Fase 3 - Modelagem
 
-O script [`02_modelagem.py`](notebooks/02_modelagem.py) utiliza a `base_modelagem_aluno` para treino, tuning, validação e comparação de modelos de classificação.
+O script [`02_modelagem.py`](notebooks/02_modelagem.py) utiliza a `base_modelagem_aluno` (enriquecida com FUNDEB quando disponível) para treinar e validar um classificador que prevê `alfabetizado_oficial`.
 
-Cuidados essenciais:
+### Escolha do algoritmo
 
-- manter `alfabetizado_oficial` como target;
-- excluir proficiência e variáveis derivadas diretamente dela;
-- avaliar o desbalanceamento do target;
-- separar treino e teste sem vazamento;
-- comparar métricas além da acurácia;
-- documentar decisões e limitações do modelo.
+`RandomForestClassifier`, com `class_weight="balanced"` (compensando o desbalanceamento observado na EDA) e `max_depth=15`. O limite de profundidade não é só ajuste de performance: sem ele, o `id_escola` (mais de mil categorias após o one-hot) gerava árvores muito grandes, o que travou o cálculo de SHAP na etapa de interpretabilidade. Limitar a profundidade resolveu isso e também reduz o risco de overfitting.
+
+### Tratamento de vazamento e exclusões
+
+Excluídas da modelagem, com justificativa registrada no próprio notebook:
+
+- `presenca_lp` e `preenchimento_lp` - vazamento indireto: 100% dos alunos alfabetizados na amostra estão no grupo presença+preenchimento válidos, e 0% dos ausentes são alfabetizados. É um atalho de mensuração, não um fator explicativo.
+- `serie` - sem variância na amostra (100% série 2).
+- `id_municipio`, `nome_municipio`, `capital` - `id_municipio` no grão de aluno é anonimizado; qualquer coluna derivada desse join chega vazia ou não confiável.
+- `record_id`, `id_aluno` - identificadores únicos, não features.
+- `processed_at`, `schema_version`, `source`, `fonte_dados`, `uf_consistente` - metadado de execução do pipeline, não característica do aluno.
+- `VL_PROFICIENCIA_LP` - já excluída na origem (Fase 2).
+
+### Split e validação
+
+Split de Pareto (80% treino / 20% teste), estratificado pelo target. Validação cruzada com `StratifiedKFold` (5 folds).
+
+### Resultado
+
+| Métrica | Valor |
+| --- | ---: |
+| ROC AUC (teste) | 0,7873 |
+| ROC AUC (validação cruzada, média) | 0,7883 |
+| F1 (validação cruzada, média) | 0,6697 |
+
+A proximidade entre o ROC AUC de teste e o de validação cruzada indica que o modelo generaliza de forma estável, sem sinal de overfitting ao split específico escolhido.
 
 ## Fase 4 - Interpretabilidade
 
-O script [`03_interpretabilidade.py`](notebooks/03_interpretabilidade.py) analisa importância de variáveis, explicações locais e globais e, quando aplicável, SHAP.
+O script [`03_interpretabilidade.py`](notebooks/03_interpretabilidade.py) carrega o modelo já treinado (via MLflow) e calcula Feature Importance nativa do RandomForest e SHAP values (`TreeExplainer`, amostra de até 1.000 linhas por custo computacional).
 
-As explicações devem ser lidas como associações do modelo. Elas não transformam correlação em causalidade e não substituem validação estatística ou conhecimento do domínio.
+As explicações devem ser lidas como associações do modelo, coerentes com o que a EDA já havia mostrado (efeito escola e efeito território persistindo mesmo controlando participação válida na avaliação). Elas não transformam correlação em causalidade e não substituem validação estatística ou conhecimento do domínio.
 
 ## Fase 5 - Aplicação estratégica
 
-O script [`04_aplicacao_estrategica.py`](notebooks/04_aplicacao_estrategica.py) transforma os achados em riscos, prioridades e respostas para apoiar decisões educacionais.
+O script [`04_aplicacao_estrategica.py`](notebooks/04_aplicacao_estrategica.py) responde diretamente às perguntas de negócio do edital:
 
-O foco estratégico é localizar contextos de maior desigualdade, priorizar investigação e direcionar recursos. Nenhuma recomendação deve tratar uma variável isolada como causa suficiente do desempenho.
+- **Municípios de maior risco**: usa `gold.indicador_municipio` (Fase 2, INEP), com nome de município real e taxa de alfabetização observada - não o `id_municipio` anonimizado do grão de aluno, que não permitiria identificar onde agir.
+- **Regiões com padrões semelhantes**: agrupamento de UFs por faixa de risco previsto pelo modelo (tercis).
+- **Municípios em risco de não atingir metas futuras**: cruza taxa atual baixa (bottom 25%, dado oficial) com tendência de queda em `evolucao_temporal`, também por município nomeado. `meta_vs_resultado` não é usada para essa validação por ter inconsistência de preenchimento identificada na EDA.
+- **Fatores de maior impacto**: resumo executivo remetendo à Fase 4.
+
+Nenhuma recomendação trata uma variável isolada como causa suficiente do desempenho.
+
+## Dashboard executivo
+
+O script [`05_dashboard.py`](notebooks/05_dashboard.py) consolida visão geral, modelo, interpretabilidade e aplicação estratégica em um painel HTML com abas, renderizado via `displayHTML` no Databricks. Não recalcula nada do zero - lê o modelo do MLflow e os mesmos dados dos notebooks anteriores. Inclui uma aba dedicada de escolas (maior e menor risco, cruzadas com UF, não com município, pelo mesmo motivo de anonimização).
 
 ## Principais achados
 
@@ -185,6 +215,7 @@ O foco estratégico é localizar contextos de maior desigualdade, priorizar inve
 - Participação e preenchimento da avaliação têm associação muito forte com o target e exigem cuidado por possível atalho de mensuração.
 - A escola foi uma das associações mais fortes: entre alunos efetivamente avaliados, as taxas variaram de 0% a 96,55%.
 - As diferenças entre UFs persistiram mesmo após controlar presença e preenchimento.
+- O modelo supervisionado (RandomForest) alcançou ROC AUC de 0,79 em teste e validação cruzada, com F1 de 0,67 - desempenho estável, sem sinal de overfitting.
 
 ### Diagnóstico
 
@@ -198,11 +229,11 @@ No nível individual, `id_municipio` é anonimizado e não deve ser cruzado dire
 
 Próximos passos sugeridos:
 
-1. Validar o preenchimento e o grão de `meta_vs_resultado`.
-2. Enriquecer a base com indicadores socioeconômicos, infraestrutura e contexto escolar.
-3. Treinar e validar modelos supervisionados com controle rigoroso de vazamento.
-4. Interpretar os modelos junto às evidências da EDA e às restrições do domínio.
-5. Transformar os resultados validados em prioridades de acompanhamento e intervenção.
+1. Validar o preenchimento e o grão de `meta_vs_resultado` na fonte, para uso futuro como validação real (hoje é só proxy por tendência).
+2. Completar o enriquecimento FUNDEB: 3 das 7 tabelas ainda estão com upload pendente (`data/ENRIQUECIMENTO_E_FEATURES.md`).
+3. Incorporar indicadores socioeconômicos adicionais (Censo Escolar, PNAD atualizado) além do que já está mapeado.
+4. Tuning de hiperparâmetro (`GridSearchCV`/`RandomizedSearchCV`) além da validação cruzada já feita.
+5. Gravar o vídeo executivo e revisar o histórico de commits/PRs do repositório antes da entrega final.
 
 ## Estrutura
 
@@ -213,6 +244,7 @@ notebooks/
 	02_modelagem.py
 	03_interpretabilidade.py
 	04_aplicacao_estrategica.py
+	05_dashboard.py
 data/       # fontes e documentação de acesso
 queries/    # consultas SQL
 src/        # módulos reutilizáveis

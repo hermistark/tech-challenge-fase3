@@ -1,4 +1,8 @@
 # Databricks notebook source
+# /// script
+# [tool.databricks.environment]
+# environment_version = "5"
+# ///
 # MAGIC %md
 # MAGIC # 04: Aplicacao estrategica
 # MAGIC
@@ -14,10 +18,12 @@
 # MAGIC 5. Quais variaveis possuem maior influencia nos modelos?
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 0. Setup
 
 # COMMAND ----------
+
 import sys
 
 sys.path.append("..")
@@ -30,13 +36,29 @@ import seaborn as sns
 from src.preprocessing.features import select_features
 
 CATALOG = "workspace"
-EXCLUDED_FEATURES = ["presenca_lp", "preenchimento_lp", "serie"]
+EXCLUDED_FEATURES = [
+    "presenca_lp",
+    "preenchimento_lp",
+    "serie",
+    "id_municipio",
+    "nome_municipio",
+    "capital",
+    "record_id",
+    "id_aluno",
+    "processed_at",
+    "schema_version",
+    "source",
+    "fonte_dados",
+    "uf_consistente",
+]
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 1. Carrega modelo e dados
 
 # COMMAND ----------
+
 mlflow.set_experiment("/Shared/fase3_alfabetizacao_aluno")
 runs = mlflow.search_runs(order_by=["start_time DESC"], max_results=1)
 if runs.empty:
@@ -51,15 +73,29 @@ X, y = select_features(frame, excluded=EXCLUDED_FEATURES)
 print(f"Modelo carregado da execucao {run_id}. Base: {len(frame):,} alunos.")
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 2. Score de risco por aluno
 # MAGIC
-# MAGIC Probabilidade prevista de **nao** ser alfabetizado. Quanto mais perto
+# MAGIC Probabilidade prevista de **não** ser alfabetizado. Quanto mais perto
 # MAGIC de 1, maior o risco educacional daquele aluno segundo o modelo.
 
 # COMMAND ----------
+
 frame = frame.reset_index(drop=True)
 X = X.reset_index(drop=True)
+
+colunas_enriquecimento = [
+    "instituicoes_conveniadas",
+    "alunos_conveniadas",
+    "instituicoes_aee",
+    "alunos_aee",
+    "instituicoes_profissional",
+    "alunos_profissional",
+]
+for col in colunas_enriquecimento:
+    if col not in X.columns:
+        X[col] = 0
 
 probabilidades = pipeline.predict_proba(X)[:, 1]
 frame["prob_alfabetizado"] = probabilidades
@@ -69,40 +105,47 @@ print("Distribuicao do risco educacional previsto:")
 frame["risco_educacional"].describe()
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 3. Pergunta: quais municipios apresentam maior risco educacional?
 # MAGIC
-# MAGIC Agrega o risco no nivel municipio (media do risco entre os alunos
-# MAGIC daquele municipio), so considerando municipios com uma amostra minima
-# MAGIC de alunos para o numero nao ser dominado por acaso estatistico.
+# MAGIC Aqui não usamos o `id_municipio` do grão de aluno (anonimizado, já
+# MAGIC documentado na EDA e sem valor prático para um gestor decidir onde
+# MAGIC agir). Usamos o mart `gold.indicador_municipio`, construido na Fase 2
+# MAGIC a partir da fonte oficial do INEP, que tem municipio **nomeado** e
+# MAGIC taxa de alfabetização **observada** (nao prevista pelo modelo). Essa
+# MAGIC e a fonte certa para responder "onde agir", com nome real.
 
 # COMMAND ----------
-MINIMO_ALUNOS_MUNICIPIO = 10
 
-risco_municipio = (
-    frame.groupby("id_municipio")
-    .agg(
-        alunos=("risco_educacional", "count"),
-        risco_medio=("risco_educacional", "mean"),
-        taxa_alfabetizacao_real=("alfabetizado_oficial", "mean"),
-    )
+indicador_municipio = spark.sql(f"""
+    SELECT nome_municipio, sigla_uf, ano, rede, taxa_alfabetizacao_media
+    FROM {CATALOG}.gold.indicador_municipio
+    WHERE ano = (SELECT MAX(ano) FROM {CATALOG}.gold.indicador_municipio)
+""").toPandas()
+
+maior_risco_real = (
+    indicador_municipio.groupby(["nome_municipio", "sigla_uf"])
+    .agg(taxa_alfabetizacao_media=("taxa_alfabetizacao_media", "mean"))
     .reset_index()
+    .sort_values("taxa_alfabetizacao_media", ascending=True)
 )
-risco_municipio = risco_municipio[risco_municipio["alunos"] >= MINIMO_ALUNOS_MUNICIPIO]
 
-maior_risco = risco_municipio.sort_values("risco_medio", ascending=False).head(15)
-print(f"Top 15 municipios de maior risco (minimo {MINIMO_ALUNOS_MUNICIPIO} alunos avaliados pelo modelo):")
-maior_risco
+print(f"Ano de referencia: {indicador_municipio['ano'].max()}")
+print("\nTop 15 municipios de MAIOR risco educacional (menor taxa de alfabetizacao observada, dado oficial INEP):")
+maior_risco_real.head(15)
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 4. Pergunta: quais regioes possuem padroes semelhantes?
 # MAGIC
-# MAGIC Agrupa o risco medio por UF, como uma aproximacao simples de
-# MAGIC clusterizacao territorial (UFs com risco medio parecido tendem a ter
-# MAGIC padroes semelhantes de resultado).
+# MAGIC Agrupa o risco médio por UF, como uma aproximação simples de
+# MAGIC clusterizacao territorial (UFs com risco médio parecido tendem a ter
+# MAGIC padrões semelhantes de resultado).
 
 # COMMAND ----------
+
 if "sigla_uf" in frame.columns:
     risco_uf = (
         frame.groupby("sigla_uf")
@@ -111,19 +154,78 @@ if "sigla_uf" in frame.columns:
             risco_medio=("risco_educacional", "mean"),
         )
         .reset_index()
-        .sort_values("risco_medio", ascending=False)
+        .sort_values("risco_medio", ascending=True)
     )
 
-    fig, ax = plt.subplots(figsize=(8, 5))
-    sns.barplot(data=risco_uf, y="sigla_uf", x="risco_medio", ax=ax, color="#C44E52")
-    ax.set_title("Risco educacional medio previsto, por UF")
-    plt.tight_layout()
-    plt.show()
-
-    # Agrupamento simples em 3 faixas de risco, como proxy de "padroes semelhantes"
     risco_uf["faixa_risco"] = pd.qcut(
         risco_uf["risco_medio"], q=3, labels=["Risco menor", "Risco intermediario", "Risco maior"]
     )
+
+    cor_faixa = {
+        "Risco menor": "#4C9F70",
+        "Risco intermediario": "#E8B84E",
+        "Risco maior": "#C44E52",
+    }
+    cores = risco_uf["faixa_risco"].map(cor_faixa)
+    risco_medio_global = risco_uf["risco_medio"].mean()
+
+    sns.set_style("whitegrid")
+    fig, ax = plt.subplots(figsize=(10, 8))
+    bars = ax.barh(
+        risco_uf["sigla_uf"],
+        risco_uf["risco_medio"],
+        color=cores,
+        edgecolor="white",
+        linewidth=0.6,
+        height=0.7,
+    )
+
+    ax.axvline(risco_medio_global, color="#333333", linestyle="--", linewidth=1.2, alpha=0.7, zorder=0)
+    ax.text(
+        risco_medio_global + 0.003,
+        len(risco_uf) - 0.5,
+        f"Media: {risco_medio_global:.3f}",
+        fontsize=8,
+        color="#333333",
+        va="top",
+    )
+
+    for bar, (_, row) in zip(bars, risco_uf.iterrows()):
+        width = bar.get_width()
+        ax.text(
+            width + 0.005,
+            bar.get_y() + bar.get_height() / 2,
+            f"{width:.3f}  ({int(row['alunos']):,})",
+            ha="left",
+            va="center",
+            fontsize=7.5,
+            color="#333333",
+        )
+
+    ax.set_xlabel("Risco educacional medio previsto", fontsize=10, labelpad=8)
+    ax.set_ylabel("")
+    ax.set_title("Risco educacional medio previsto por UF", fontsize=13, fontweight="bold", pad=12)
+    ax.set_xlim(0, risco_uf["risco_medio"].max() * 1.22)
+    ax.tick_params(axis="y", labelsize=9)
+    ax.tick_params(axis="x", labelsize=8)
+    ax.xaxis.grid(True, alpha=0.3)
+    ax.yaxis.grid(False)
+
+    handles = [plt.Rectangle((0, 0), 1, 1, color=c) for c in cor_faixa.values()]
+    ax.legend(
+        handles,
+        cor_faixa.keys(),
+        title="Faixa de risco",
+        loc="lower right",
+        fontsize=8,
+        title_fontsize=8.5,
+        frameon=True,
+        framealpha=0.9,
+    )
+
+    sns.despine(left=True, bottom=True)
+    plt.tight_layout()
+    plt.show()
 
     print("UFs agrupadas por faixa de risco semelhante:")
     for faixa in ["Risco maior", "Risco intermediario", "Risco menor"]:
@@ -133,33 +235,60 @@ else:
     print("Coluna sigla_uf nao encontrada na base carregada, pulando agrupamento por UF.")
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 5. Pergunta: como prever municipios que podem nao atingir metas futuras?
 # MAGIC
-# MAGIC Abordagem: usar o risco medio previsto pelo modelo como um indicador
-# MAGIC antecipado (proxy) de probabilidade de nao atingimento de meta, dado
-# MAGIC que `meta_vs_resultado` teve problemas de preenchimento identificados
-# MAGIC na EDA (secao 11 de `01_eda.py`) e nao pode ser usada diretamente como
-# MAGIC validacao nesta amostra.
+# MAGIC `meta_vs_resultado` tem problema de preenchimento identificado na EDA
+# MAGIC (secao 11 de `01_eda.py`), entao a abordagem aqui e outra: cruzar o
+# MAGIC nivel atual de alfabetizacao (baixo = ja em risco hoje) com a
+# MAGIC tendencia observada em `evolucao_temporal` (piorando = risco de
+# MAGIC futuro tambem ruim), os dois com nome de municipio real.
 
 # COMMAND ----------
-LIMIAR_ALERTA = risco_municipio["risco_medio"].quantile(0.75)
 
-municipios_alerta = risco_municipio[risco_municipio["risco_medio"] >= LIMIAR_ALERTA]
+LIMIAR_RISCO_ATUAL = maior_risco_real["taxa_alfabetizacao_media"].quantile(0.25)
 
-print(
-    f"Usando o percentil 75 do risco medio como limiar de alerta "
-    f"({LIMIAR_ALERTA:.2%}): {len(municipios_alerta)} municipios "
-    f"(de {len(risco_municipio)} com amostra minima) entrariam em alerta "
-    "preventivo de risco de nao atingir metas futuras de alfabetizacao."
+municipios_risco_atual = set(
+    maior_risco_real[maior_risco_real["taxa_alfabetizacao_media"] <= LIMIAR_RISCO_ATUAL]["nome_municipio"]
 )
+
+municipios_alerta_duplo = set()
+try:
+    tendencia_municipio = spark.sql(f"""
+        SELECT nome_municipio, sigla_uf, tendencia
+        FROM {CATALOG}.gold.evolucao_temporal
+        WHERE nivel_territorial = 'municipio'
+        AND ano = (SELECT MAX(ano) FROM {CATALOG}.gold.evolucao_temporal WHERE nivel_territorial = 'municipio')
+    """).toPandas()
+
+    municipios_piorando = set(
+        tendencia_municipio[tendencia_municipio["tendencia"].str.contains("queda|piora", case=False, na=False)]["nome_municipio"]
+    )
+
+    municipios_alerta_duplo = municipios_risco_atual & municipios_piorando
+
+    print(f"Municipios com taxa atual baixa (bottom 25%): {len(municipios_risco_atual)}")
+    print(f"Municipios com tendencia de queda: {len(municipios_piorando)}")
+    print(f"\nMunicipios em ALERTA DUPLO (baixo hoje E piorando): {len(municipios_alerta_duplo)}")
+    if municipios_alerta_duplo:
+        print(sorted(municipios_alerta_duplo)[:20])
+except Exception as exc:
+    print(
+        f"Nao foi possivel cruzar com evolucao_temporal ({type(exc).__name__}: {exc}). "
+        f"Usando so o criterio de taxa atual baixa: {len(municipios_risco_atual)} municipios "
+        "no bottom 25% de alfabetizacao, candidatos a risco de nao atingir metas futuras."
+    )
+
 print(
-    "\nRessalva importante: isso e um proxy baseado no modelo atual, nao "
-    "uma validacao contra meta oficial. Validar contra meta_vs_resultado "
-    "assim que o preenchimento desses campos for corrigido na fonte."
+    "\nRessalva: isso e um proxy baseado em nivel e tendencia observados, "
+    "nao uma validacao contra meta oficial. meta_vs_resultado nao esta "
+    "confiavel nesta amostra ainda; revisitar quando o preenchimento "
+    "desses campos for corrigido na fonte."
 )
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 6. Perguntas: quais fatores mais impactam, e quais variaveis tem maior influencia?
 # MAGIC
@@ -167,6 +296,7 @@ print(
 # MAGIC Importance + SHAP). Resumo executivo aqui:
 
 # COMMAND ----------
+
 print(
     """
 Resumo executivo (fatores de maior impacto, detalhe completo em 03):
@@ -187,10 +317,12 @@ mais efetiva do que uma politica uniforme por rede de ensino.
 )
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 7. Limitacoes desta aplicacao estrategica
 
 # COMMAND ----------
+
 print(
     """
 - O "risco educacional" e uma probabilidade de modelo, nao uma medida
@@ -206,10 +338,13 @@ print(
 )
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 8. Retorno para o pipeline runner (se houver)
 
 # COMMAND ----------
+
 dbutils.notebook.exit(
-    f"Aplicacao estrategica concluida: {len(municipios_alerta)} municipios em alerta preventivo"
+    f"Aplicacao estrategica concluida: {len(municipios_risco_atual)} municipios em risco atual, "
+    f"{len(municipios_alerta_duplo)} em alerta duplo (risco atual + tendencia de queda)"
 )

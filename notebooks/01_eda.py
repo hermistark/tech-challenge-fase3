@@ -1,4 +1,8 @@
 # Databricks notebook source
+# /// script
+# [tool.databricks.environment]
+# environment_version = "5"
+# ///
 # MAGIC %md
 # MAGIC # 01: Analise Exploratoria de Dados - Alfabetizacao Infantil
 # MAGIC
@@ -20,10 +24,12 @@
 # MAGIC `base_modelagem_aluno`).
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 0. Setup
 
 # COMMAND ----------
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -42,12 +48,14 @@ spark.sql("USE SCHEMA gold")
 print("Catalogo e schema configurados: workspace.gold")
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 1. Visao geral dos indicadores municipais
 # MAGIC
 # MAGIC Ponto de partida: distribuicao geral das taxas em `indicador_municipio`.
 
 # COMMAND ----------
+
 visao_geral = rodar("""
     SELECT
         COUNT(*) AS total_registros,
@@ -62,6 +70,7 @@ visao_geral = rodar("""
 visao_geral
 
 # COMMAND ----------
+
 faixas = rodar("""
     SELECT
         CASE
@@ -100,10 +109,12 @@ print(
 )
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 2. Hipotese 1: o territorio esta associado ao desempenho?
 
 # COMMAND ----------
+
 regiao = rodar("""
     SELECT regiao, AVG(taxa_alfabetizacao_media) AS taxa_media
     FROM resumo_uf
@@ -119,6 +130,7 @@ plt.tight_layout()
 plt.show()
 
 # COMMAND ----------
+
 dispersao_uf = rodar("""
     WITH medias AS (
         SELECT sigla_uf, nome_uf, AVG(taxa_alfabetizacao_media) AS media
@@ -151,6 +163,7 @@ dispersao_uf = rodar("""
 dispersao_uf.head(10)
 
 # COMMAND ----------
+
 print(
     "Conclusao (hipotese 1): PARCIALMENTE CONFIRMADA. O territorio esta "
     "fortemente associado ao desempenho, mas regiao ou UF isoladamente nao "
@@ -159,10 +172,12 @@ print(
 )
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 3. Hipotese 2: a rede de ensino explica as diferencas?
 
 # COMMAND ----------
+
 rede_geral = rodar("""
     SELECT rede_label, COUNT(*) AS registros, AVG(taxa_alfabetizacao_media) AS taxa_media,
            MIN(taxa_alfabetizacao_media) AS menor_taxa, MAX(taxa_alfabetizacao_media) AS maior_taxa
@@ -173,6 +188,7 @@ rede_geral = rodar("""
 rede_geral
 
 # COMMAND ----------
+
 rede_por_uf = rodar("""
     SELECT sigla_uf, nome_uf, regiao, rede_label, AVG(taxa_alfabetizacao_media) AS media
     FROM resumo_uf
@@ -192,10 +208,12 @@ print(
 )
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 4. Hipotese 3: capitais apresentam melhores resultados?
 
 # COMMAND ----------
+
 capitais = [
     "Rio Branco", "Maceio", "Macapa", "Manaus", "Salvador", "Fortaleza",
     "Brasilia", "Vitoria", "Goiania", "Sao Luis", "Cuiaba", "Campo Grande",
@@ -229,6 +247,7 @@ print(
 )
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 5. Nivel do aluno: visao geral de `base_modelagem_aluno`
 # MAGIC
@@ -236,6 +255,7 @@ print(
 # MAGIC base que sera usada na modelagem supervisionada (`02_modelagem`).
 
 # COMMAND ----------
+
 base_geral = rodar("""
     SELECT
         COUNT(*) AS total_registros,
@@ -247,6 +267,7 @@ base_geral = rodar("""
 base_geral
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ### Desbalanceamento do target `alfabetizado_oficial`
 # MAGIC
@@ -254,6 +275,7 @@ base_geral
 # MAGIC metrica de modelagem (accuracy pode enganar num cenario desbalanceado).
 
 # COMMAND ----------
+
 target_balance = rodar("""
     SELECT
         alfabetizado_oficial,
@@ -279,10 +301,12 @@ print(
 )
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 6. Serie escolar
 
 # COMMAND ----------
+
 serie = rodar("""
     SELECT serie, COUNT(*) AS alunos,
            SUM(CASE WHEN alfabetizado_oficial = 1 THEN 1 ELSE 0 END) AS alfabetizados,
@@ -295,6 +319,7 @@ serie = rodar("""
 serie
 
 # COMMAND ----------
+
 if serie["serie"].nunique() <= 1:
     print(
         "A serie nao varia nesta amostra (100% na mesma serie). Nao pode "
@@ -303,6 +328,7 @@ if serie["serie"].nunique() <= 1:
     )
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 7. Hipotese 4: participacao na avaliacao esta associada a alfabetizacao?
 # MAGIC
@@ -311,6 +337,7 @@ if serie["serie"].nunique() <= 1:
 # MAGIC target). Avaliar com cuidado antes de usar como feature na modelagem.
 
 # COMMAND ----------
+
 presenca = rodar("""
     SELECT presenca_lp, COUNT(*) AS alunos,
            SUM(CASE WHEN alfabetizado_oficial = 1 THEN 1 ELSE 0 END) AS alfabetizados,
@@ -324,6 +351,7 @@ presenca = rodar("""
 presenca
 
 # COMMAND ----------
+
 presenca_preenchimento = rodar("""
     SELECT preenchimento_lp, presenca_lp, COUNT(*) AS alunos,
            SUM(CASE WHEN alfabetizado_oficial = 1 THEN 1 ELSE 0 END) AS alfabetizados,
@@ -337,6 +365,7 @@ presenca_preenchimento = rodar("""
 presenca_preenchimento
 
 # COMMAND ----------
+
 print(
     "Associacao muito forte entre participacao valida e alfabetizacao. "
     "IMPORTANTE para a modelagem: presenca_lp e preenchimento_lp funcionam "
@@ -347,10 +376,12 @@ print(
 )
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 8. Dependencia administrativa no nivel do aluno
 
 # COMMAND ----------
+
 dependencia = rodar("""
     SELECT tp_dependencia, rede, rede_label, COUNT(*) AS alunos,
            SUM(CASE WHEN alfabetizado_oficial = 1 THEN 1 ELSE 0 END) AS alfabetizados,
@@ -364,6 +395,7 @@ dependencia = rodar("""
 dependencia
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 9. Hipotese 5: a escola esta associada ao resultado?
 # MAGIC
@@ -372,6 +404,7 @@ dependencia
 # MAGIC com ausencia na avaliacao.
 
 # COMMAND ----------
+
 escolas_geral = rodar("""
     SELECT COUNT(*) AS alunos, COUNT(DISTINCT id_escola) AS escolas
     FROM base_modelagem_aluno
@@ -380,6 +413,7 @@ escolas_geral = rodar("""
 escolas_geral
 
 # COMMAND ----------
+
 melhores_escolas = rodar("""
     SELECT id_escola, COUNT(*) AS alunos_avaliados,
            SUM(CASE WHEN alfabetizado_oficial = 1 THEN 1 ELSE 0 END) AS alfabetizados,
@@ -424,10 +458,12 @@ print(
 )
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 10. Hipotese 6: a diferenca territorial permanece so com alunos avaliados?
 
 # COMMAND ----------
+
 uf_avaliados = rodar("""
     SELECT sigla_uf, COUNT(*) AS alunos_avaliados,
            SUM(CASE WHEN alfabetizado_oficial = 1 THEN 1 ELSE 0 END) AS alfabetizados,
@@ -453,6 +489,7 @@ print(
 )
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 11. Metas educacionais (`meta_vs_resultado`)
 # MAGIC
@@ -461,15 +498,17 @@ print(
 # MAGIC amostra). Por isso ela nao foi usada para sustentar o diagnostico final.
 
 # COMMAND ----------
+
 metas_geral = rodar("""
     SELECT COUNT(*) AS total,
-           SUM(CASE WHEN atingiu_meta = 1 THEN 1 ELSE 0 END) AS atingiram_meta,
-           SUM(CASE WHEN atingiu_meta = 0 THEN 1 ELSE 0 END) AS nao_atingiram_meta
+           SUM(CASE WHEN atingiu_meta = TRUE THEN 1 ELSE 0 END) AS atingiram_meta,
+           SUM(CASE WHEN atingiu_meta = FALSE THEN 1 ELSE 0 END) AS nao_atingiram_meta
     FROM meta_vs_resultado
 """)
 metas_geral
 
 # COMMAND ----------
+
 if metas_geral["atingiram_meta"].iloc[0] == 0 and metas_geral["nao_atingiram_meta"].iloc[0] == 0:
     print(
         "Confirmado: atingiu_meta nao esta populado na amostra atual. "
@@ -478,6 +517,7 @@ if metas_geral["atingiram_meta"].iloc[0] == 0 and metas_geral["nao_atingiram_met
     )
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 12. Evolucao temporal (`evolucao_temporal`)
 # MAGIC
@@ -485,6 +525,7 @@ if metas_geral["atingiram_meta"].iloc[0] == 0 and metas_geral["nao_atingiram_met
 # MAGIC tabela combina niveis territoriais e redes diferentes.
 
 # COMMAND ----------
+
 evolucao = rodar("""
     SELECT ano, COUNT(*) AS registros, AVG(taxa_alfabetizacao_media) AS taxa_media,
            AVG(variacao_absoluta) AS variacao_media_absoluta
@@ -495,6 +536,7 @@ evolucao = rodar("""
 evolucao
 
 # COMMAND ----------
+
 tendencia = rodar("""
     SELECT ano, tendencia, COUNT(*) AS quantidade
     FROM evolucao_temporal
@@ -504,10 +546,12 @@ tendencia = rodar("""
 tendencia
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 13. Diagnostico final e implicacoes para a modelagem (Fase 3)
 
 # COMMAND ----------
+
 print("""
 DIAGNOSTICO: as desigualdades de alfabetizacao nao sao explicadas por um
 unico fator. Escola, participacao regular do aluno na avaliacao e contexto

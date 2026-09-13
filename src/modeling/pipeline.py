@@ -17,6 +17,7 @@ def build_random_forest_pipeline(frame):
                 "model",
                 RandomForestClassifier(
                     n_estimators=200,
+                    max_depth=15,
                     class_weight="balanced",
                     n_jobs=-1,
                     random_state=42,

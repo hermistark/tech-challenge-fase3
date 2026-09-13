@@ -1,4 +1,8 @@
 # Databricks notebook source
+# /// script
+# [tool.databricks.environment]
+# environment_version = "5"
+# ///
 # MAGIC %md
 # MAGIC # 00: Enriquecimento com dados do FUNDEB
 # MAGIC
@@ -19,10 +23,12 @@
 # MAGIC 1997. Ver secao 5 para o registro completo dessa decisao.
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 0. Setup
 
 # COMMAND ----------
+
 import glob
 
 import pandas as pd
@@ -31,6 +37,7 @@ CATALOG = "workspace"
 DATA_DIR = "../data"
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 1. Leitura e limpeza das 3 tabelas de instituicoes
 # MAGIC
@@ -44,6 +51,7 @@ DATA_DIR = "../data"
 # MAGIC explicito o que cada leitura está pulando e por que.
 
 # COMMAND ----------
+
 conveniadas = pd.read_csv(
     f"{DATA_DIR}/InstituicoesConveniadasFundeb2026(conveniadas).csv",
     encoding="latin1",
@@ -54,12 +62,14 @@ conveniadas.columns = conveniadas.columns.str.strip()
 print(f"conveniadas: {len(conveniadas):,} linhas, colunas: {list(conveniadas.columns)}")
 
 # COMMAND ----------
+
 caminho_aee = f"{DATA_DIR}/InstituiesdeAEEFundeb2026Revisada(Consulta Escolas - Oferecem AEE).csv"
 aee = pd.read_csv(caminho_aee, encoding="latin1", sep=";", header=1)
 aee.columns = aee.columns.str.strip()
 print(f"aee: {len(aee):,} linhas, colunas: {list(aee.columns)}")
 
 # COMMAND ----------
+
 # Nome do arquivo tem acentos mal codificados no repositorio; glob evita
 # depender de digitar o nome exato.
 caminho_prof = glob.glob(f"{DATA_DIR}/*Profissional*.csv")[0]
@@ -68,6 +78,7 @@ profissional.columns = profissional.columns.str.strip()
 print(f"profissional: {len(profissional):,} linhas, colunas: {list(profissional.columns)}")
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 2. Agregacao por UF
 # MAGIC
@@ -76,6 +87,7 @@ print(f"profissional: {len(profissional):,} linhas, colunas: {list(profissional.
 # MAGIC virgula decimal em pelo menos uma fonte, tratado explicitamente.
 
 # COMMAND ----------
+
 def para_numero(coluna: pd.Series) -> pd.Series:
     """Converte coluna que pode vir como texto com virgula decimal ou NaN."""
     if coluna.dtype == object:
@@ -83,6 +95,7 @@ def para_numero(coluna: pd.Series) -> pd.Series:
     return pd.to_numeric(coluna, errors="coerce")
 
 # COMMAND ----------
+
 agg_conveniadas = (
     conveniadas.groupby("UF")
     .agg(
@@ -121,6 +134,7 @@ print(f"UFs cobertas: {len(enriquecimento_uf)}")
 enriquecimento_uf
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 3. Publicacao como tabela Gold
 # MAGIC
@@ -129,16 +143,19 @@ enriquecimento_uf
 # MAGIC execucao.
 
 # COMMAND ----------
+
 spark.createDataFrame(enriquecimento_uf).write.mode("overwrite").saveAsTable(
     f"{CATALOG}.gold.enriquecimento_fundeb_uf"
 )
 print(f"Publicado em {CATALOG}.gold.enriquecimento_fundeb_uf")
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 4. Junta na base de aluno e valida cobertura
 
 # COMMAND ----------
+
 base_aluno = spark.sql(f"SELECT * FROM {CATALOG}.gold.base_modelagem_aluno").toPandas()
 
 base_enriquecida = base_aluno.merge(enriquecimento_uf, on="sigla_uf", how="left")
@@ -153,6 +170,7 @@ if cobertura < 1.0:
     print(f"UFs da base de aluno sem correspondencia no FUNDEB: {ufs_sem_match}")
 
 # COMMAND ----------
+
 spark.createDataFrame(base_enriquecida).write.mode("overwrite").saveAsTable(
     f"{CATALOG}.gold.base_modelagem_aluno_enriquecida"
 )
@@ -160,6 +178,7 @@ print(f"Publicado em {CATALOG}.gold.base_modelagem_aluno_enriquecida")
 print(f"Colunas novas: instituicoes_conveniadas, alunos_conveniadas, instituicoes_aee, alunos_aee, instituicoes_profissional, alunos_profissional")
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 5. Fontes avaliadas e descartadas nesta etapa
 # MAGIC
@@ -187,10 +206,12 @@ print(f"Colunas novas: instituicoes_conveniadas, alunos_conveniadas, instituicoe
 # MAGIC   join.
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 6. Retorno para o pipeline runner (se houver)
 
 # COMMAND ----------
+
 dbutils.notebook.exit(
     f"Enriquecimento FUNDEB publicado: {len(enriquecimento_uf)} UFs, "
     f"cobertura na base de aluno = {cobertura:.1%}"

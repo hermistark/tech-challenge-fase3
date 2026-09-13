@@ -8,11 +8,12 @@ venv/
 # Jupyter
 .ipynb_checkpoints/
 
-# Data and generated artifacts
-data/raw/*
+# MLflow local (quando rodado fora do Databricks)
+mlruns/
+
+# Artefatos gerados localmente (nao os CSVs de origem em data/, que sao
+# versionados de proposito: sao as fontes do enriquecimento FUNDEB)
 data/processed/*
-data/*.csv
-data/*.parquet
 models/
 reports/generated/
 images/generated/

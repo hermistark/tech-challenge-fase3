@@ -1,4 +1,9 @@
 # Databricks notebook source
+# /// script
+# [tool.databricks.environment]
+# base_environment = "databricks_ai_v5"
+# environment_version = "5"
+# ///
 # MAGIC %md
 # MAGIC # 02: Modelagem supervisionada
 # MAGIC
@@ -10,7 +15,7 @@
 # MAGIC
 # MAGIC Decisoes desta etapa, vindas direto do `01_eda`:
 # MAGIC
-# MAGIC 1. Target desbalanceado (~64% nao alfabetizado, ~36% alfabetizado) ->
+# MAGIC 1. Target desbalanceado (~60% nao alfabetizado, ~40% alfabetizado) ->
 # MAGIC    usar `class_weight="balanced"`, split estratificado, e reportar
 # MAGIC    F1/AUC/recall por classe, nunca so accuracy.
 # MAGIC 2. `presenca_lp` e `preenchimento_lp` sao excluidas das features por
@@ -21,12 +26,35 @@
 # MAGIC 3. `serie` e excluida por nao ter variancia na amostra (100% serie 2).
 # MAGIC 4. `VL_PROFICIENCIA_LP` ja vem excluida na origem (Fase 2), mantido
 # MAGIC    aqui como camada extra de seguranca.
+# MAGIC 5. `id_municipio`, `nome_municipio` e `capital` sao excluidas: a EDA
+# MAGIC    ja documentou que `id_municipio` no grao de aluno e anonimizado e
+# MAGIC    nao corresponde ao codigo real do IBGE, entao qualquer coluna
+# MAGIC    derivada desse join (como `capital`) chega vazia ou nao confiavel.
+# MAGIC    `sigla_uf` continua confiavel e e usada no lugar como feature
+# MAGIC    territorial.
+# MAGIC 6. `record_id` e `id_aluno` sao identificadores unicos (uma linha por
+# MAGIC    valor) e nao features preditivas. Incluir isso sem excluir faz o
+# MAGIC    encoder tentar criar uma coluna por valor unico, o que explica
+# MAGIC    travamentos/demora extrema na validacao cruzada. `processed_at`,
+# MAGIC    `schema_version`, `source`, `fonte_dados` e `uf_consistente` sao
+# MAGIC    metadado de execucao do pipeline de dados, tambem excluidos por
+# MAGIC    nao serem caracteristica do aluno/escola.
+# MAGIC 7. `max_depth=15` no RandomForest (`src/modeling/pipeline.py`):
+# MAGIC    `id_escola` tem 1181 categorias e vira 1181 colunas apos o
+# MAGIC    one-hot, deixando arvores sem limite de profundidade gigantescas.
+# MAGIC    Isso travou o calculo de SHAP em `03_interpretabilidade.py`
+# MAGIC    (29+ minutos sem terminar mesmo com amostra reduzida). Limitar a
+# MAGIC    profundidade tambem reduz risco de overfitting, nao e so uma
+# MAGIC    correcao de performance.
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 0. Setup
 
 # COMMAND ----------
+
+
 import sys
 
 sys.path.append("..")
@@ -44,9 +72,28 @@ CATALOG = "workspace"
 RANDOM_STATE = 42
 
 # Exclusoes documentadas na celula acima: vazamento indireto + sem variancia.
-EXCLUDED_FEATURES = ["presenca_lp", "preenchimento_lp", "serie"]
+EXCLUDED_FEATURES = [
+    "presenca_lp",
+    "preenchimento_lp",
+    "serie",
+    "id_municipio",
+    "nome_municipio",
+    "capital",
+    # Identificadores unicos (um valor por linha) - nao sao features, e se
+    # o encoder tentar tratar como categorico gera dezenas de milhares de
+    # colunas novas, explicando travamentos/demora extrema na modelagem.
+    "record_id",
+    "id_aluno",
+    # Metadado do pipeline de dados, nao caracteristica do aluno/escola.
+    "processed_at",
+    "schema_version",
+    "source",
+    "fonte_dados",
+    "uf_consistente",
+]
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 1. Carga dos dados
 # MAGIC
@@ -55,6 +102,7 @@ EXCLUDED_FEATURES = ["presenca_lp", "preenchimento_lp", "serie"]
 # MAGIC enriquecimento, e avisa isso explicitamente.
 
 # COMMAND ----------
+
 try:
     frame = spark.sql(f"SELECT * FROM {CATALOG}.gold.base_modelagem_aluno_enriquecida").toPandas()
     print("Usando base ENRIQUECIDA com FUNDEB (gold.base_modelagem_aluno_enriquecida).")
@@ -70,6 +118,7 @@ print(f"Registros carregados: {len(frame):,}")
 print(f"Colunas: {list(frame.columns)}")
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 2. Selecao de features e split
 # MAGIC
@@ -78,24 +127,55 @@ print(f"Colunas: {list(frame.columns)}")
 # MAGIC exclusoes adicionais documentadas acima entram via `excluded`.
 
 # COMMAND ----------
+
 X, y = select_features(frame, excluded=EXCLUDED_FEATURES)
 
 print(f"Features usadas ({len(X.columns)}): {list(X.columns)}")
 print(f"\nDistribuicao do target:\n{y.value_counts(normalize=True)}")
 
 # COMMAND ----------
+
+# Checagem defensiva: qualquer feature 100% vazia quebra ou gera warning
+# no imputer mais na frente. Detecta e avisa AQUI, de forma explicita, em
+# vez de deixar aparecer como um warning silencioso do sklearn depois.
+colunas_totalmente_vazias = [c for c in X.columns if X[c].isna().all()]
+if colunas_totalmente_vazias:
+    print(
+        f"AVISO: {len(colunas_totalmente_vazias)} coluna(s) 100% vazia(s) "
+        f"nesta base, removendo automaticamente: {colunas_totalmente_vazias}"
+    )
+    X = X.drop(columns=colunas_totalmente_vazias)
+else:
+    print("Nenhuma coluna totalmente vazia encontrada nas features selecionadas.")
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ### Split treino/teste: proporcao de Pareto (80/20)
+# MAGIC
+# MAGIC 80% para treino, 20% para teste, estratificado pelo target (mantem a
+# MAGIC mesma proporcao de alfabetizado/nao alfabetizado nos dois conjuntos,
+# MAGIC dado o desbalanceamento identificado na EDA).
+
+# COMMAND ----------
+
+PROPORCAO_TREINO = 0.8
+PROPORCAO_TESTE = 0.2
+
 X_train, X_test, y_train, y_test = train_test_split(
     X,
     y,
-    test_size=0.2,
+    test_size=PROPORCAO_TESTE,
     random_state=RANDOM_STATE,
     stratify=y,
 )
 
+print(f"Split Pareto {PROPORCAO_TREINO:.0%}/{PROPORCAO_TESTE:.0%}")
 print(f"Treino: {len(X_train):,} | Teste: {len(X_test):,}")
 print(f"Proporcao da classe positiva - treino: {y_train.mean():.2%}, teste: {y_test.mean():.2%}")
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 3. Baseline
 # MAGIC
@@ -104,6 +184,7 @@ print(f"Proporcao da classe positiva - treino: {y_train.mean():.2%}, teste: {y_t
 # MAGIC modelo real precisa superar isso para justificar a complexidade.
 
 # COMMAND ----------
+
 baseline = DummyClassifier(strategy="stratified", random_state=RANDOM_STATE)
 baseline.fit(X_train, y_train)
 
@@ -118,6 +199,7 @@ print(
 )
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 4. Pipeline de producao: pre-processamento + RandomForest
 # MAGIC
@@ -128,15 +210,18 @@ print(
 # MAGIC somente no treino, nunca vazando informacao do teste.
 
 # COMMAND ----------
+
 pipeline = build_random_forest_pipeline(X_train)
 pipeline.fit(X_train, y_train)
 print("Pipeline treinado.")
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 5. Avaliacao no conjunto de teste
 
 # COMMAND ----------
+
 resultado = evaluate_classifier(pipeline, X_test, y_test)
 
 print(f"ROC AUC: {resultado['roc_auc']:.4f}")
@@ -145,11 +230,13 @@ relatorio = pd.DataFrame(resultado["classification_report"]).transpose()
 relatorio
 
 # COMMAND ----------
+
 matriz = np.array(resultado["confusion_matrix"])
 print("Matriz de confusao (linhas=real, colunas=previsto):")
 print(pd.DataFrame(matriz, index=["real_0", "real_1"], columns=["prev_0", "prev_1"]))
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 6. Validacao cruzada
 # MAGIC
@@ -157,6 +244,7 @@ print(pd.DataFrame(matriz, index=["real_0", "real_1"], columns=["prev_0", "prev_
 # MAGIC com o desbalanceamento observado na EDA.
 
 # COMMAND ----------
+
 cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=RANDOM_STATE)
 
 cv_resultado = cross_validate(
@@ -165,7 +253,10 @@ cv_resultado = cross_validate(
     y_train,
     cv=cv,
     scoring=["roc_auc", "f1", "recall", "precision"],
-    n_jobs=-1,
+    # n_jobs=1: dentro do driver do Databricks, paralelismo do joblib pode
+    # conflitar com o gerenciamento de processos do Spark e travar em vez
+    # de acelerar. Com 37 mil linhas nao precisa de paralelismo mesmo.
+    n_jobs=1,
 )
 
 cv_resumo = pd.DataFrame(cv_resultado)[
@@ -176,6 +267,7 @@ cv_resumo.loc["desvio_padrao"] = cv_resumo.iloc[:-1].std()
 cv_resumo
 
 # COMMAND ----------
+
 print(
     f"ROC AUC medio (CV): {cv_resumo.loc['media', 'test_roc_auc']:.4f} "
     f"+/- {cv_resumo.loc['desvio_padrao', 'test_roc_auc']:.4f}\n"
@@ -188,10 +280,12 @@ print(
 )
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 7. Registro no MLflow
 
 # COMMAND ----------
+
 import mlflow
 import mlflow.sklearn
 
@@ -199,6 +293,8 @@ mlflow.set_experiment("/Shared/fase3_alfabetizacao_aluno")
 
 with mlflow.start_run(run_name="random_forest_aluno"):
     mlflow.log_param("modelo", "RandomForestClassifier")
+    mlflow.log_param("n_estimators", 200)
+    mlflow.log_param("max_depth", 15)
     mlflow.log_param("features_excluidas", EXCLUDED_FEATURES)
     mlflow.log_param("n_features", len(X.columns))
     mlflow.log_param("n_treino", len(X_train))
@@ -215,10 +311,12 @@ with mlflow.start_run(run_name="random_forest_aluno"):
     print("Execucao registrada no MLflow: /Shared/fase3_alfabetizacao_aluno")
 
 # COMMAND ----------
+
 # MAGIC %md
 # MAGIC ## 8. Retorno para o pipeline runner (se houver)
 
 # COMMAND ----------
+
 dbutils.notebook.exit(
     f"Modelagem concluida: roc_auc_teste={resultado['roc_auc']:.4f}, "
     f"roc_auc_cv={cv_resumo.loc['media', 'test_roc_auc']:.4f}"
