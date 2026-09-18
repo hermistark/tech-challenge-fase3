@@ -29,6 +29,9 @@ Dados oficiais -> território -> rede de ensino -> escola -> aluno -> decisão e
 
 O objetivo é identificar associações e padrões úteis para diagnóstico. Os resultados não devem ser interpretados como evidência de causalidade.
 
+
+Link do GitHub: https://github.com/hermistark/tech-challenge-fase3
+
 ## Fase 0 - Dados e preparação
 
 As fontes principais são INEP, IBGE e os microdados `TS_ALUNO.csv` da Avaliação da Alfabetização (Saeb) 2023.
